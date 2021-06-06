@@ -1,5 +1,5 @@
 const HeaderSeparator = (): JSX.Element => {
-  return <>{" | "}</>;
+  return <>{' | '}</>;
 };
 
 export default HeaderSeparator;
