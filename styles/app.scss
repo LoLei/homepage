@@ -1,0 +1,44 @@
+@use 'theme';
+@use 'variables';
+
+html,
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+  color: theme.$fg;
+  background-color: theme.$bg;
+
+  padding: 0;
+
+  margin: 0 5vw;
+  @media only screen and (max-width: variables.$phoneWidth) {
+    margin: 0;
+  }
+
+  .container {
+    height: 100vh;
+
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 2em auto 2em;
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+
+    .header {
+      grid-area: header;
+      background-color: red;
+    }
+
+    .main {
+      grid-area: main;
+      background-color: gray;
+    }
+    .footer {
+      grid-area: footer;
+      background-color: green;
+    }
+  }
+}
