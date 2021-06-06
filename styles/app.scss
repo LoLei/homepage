@@ -17,6 +17,15 @@ body {
     margin: 0;
   }
 
+  a {
+    text-decoration: none;
+    color: theme.$link;
+
+    &:hover {
+      color: theme.$link-hover;
+    }
+  }
+
   .container {
     height: 100vh;
 
