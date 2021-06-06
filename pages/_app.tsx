@@ -18,6 +18,6 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
       </div>
     </div>
   );
-}
+};
 
 export default App;
