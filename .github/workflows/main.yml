@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+
+jobs:
+  preliminary-checks:
+    runs-on: node:12.22.1-alpine
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint via prettier
+        run: yarn pretty:check
+
+      - name: Lint via eslint
+        run: yarn lint
+        
+      - name: Build project
+        run: yarn build
