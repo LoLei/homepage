@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 import HeaderSeparator from '../components/HeaderSeparator';
 import styles from '../styles/Header.module.scss';

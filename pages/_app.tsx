@@ -1,9 +1,10 @@
+import React from 'react';
 import '../styles/all.scss';
 import type { AppProps } from 'next/app';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-function MyApp({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
     <div className="container">
       <div className="header">
@@ -18,4 +19,5 @@ function MyApp({ Component, pageProps }: AppProps) {
     </div>
   );
 }
-export default MyApp;
+
+export default App;
