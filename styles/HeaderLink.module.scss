@@ -1,0 +1,5 @@
+@use "theme";
+
+.active {
+  color: theme.$link-hover;
+}
