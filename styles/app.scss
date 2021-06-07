@@ -13,7 +13,7 @@ body {
   padding: 0;
 
   margin: 0 10vw;
-  @media only screen and (max-width: variables.$phone-width) {
+  @media only screen and (max-width: variables.$tablet-width) {
     margin: 0;
   }
 
