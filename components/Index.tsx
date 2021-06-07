@@ -30,7 +30,7 @@ const Index = (): JSX.Element => {
       </div>
 
       <div className={styles.contact}>
-        Email:{' '}
+        <span>Email:</span>{' '}
         <Obfuscate
           email={process.env.NEXT_PUBLIC_EMAIL_ADDRESS}
           headers={{
