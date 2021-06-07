@@ -1,0 +1,23 @@
+@use 'mixins';
+
+.container {
+  height: 100%;
+  @include mixins.center-content;
+  flex-direction: column;
+
+  .heading {
+    margin-top: 5vh;
+  }
+
+  .subtitle {
+    opacity: 75%;
+  }
+
+  .siteInformation {
+    margin-top: 1em;
+
+    p {
+      text-align: center;
+    }
+  }
+}

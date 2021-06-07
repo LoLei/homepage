@@ -1,7 +1,8 @@
 import React from 'react';
+import Index from '../components/Index';
 
-const Index = (): JSX.Element => {
-  return <div>Index</div>;
+const IndexPage = (): JSX.Element => {
+  return <Index />;
 };
 
-export default Index;
+export default IndexPage;
