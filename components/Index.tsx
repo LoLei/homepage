@@ -3,6 +3,7 @@ import React from 'react';
 // @ts-ignore
 import Obfuscate from 'react-obfuscate';
 import styles from '../styles/Index.module.scss';
+import { FaFacebook, FaGithub, FaGitlab, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const Index = (): JSX.Element => {
   return (
@@ -36,6 +37,30 @@ const Index = (): JSX.Element => {
             subject: 'Contact from Homepage',
           }}
         />
+      </div>
+
+      <div className={styles.socials}>
+        <p>Socials:</p>
+        <div className={styles.socialsLinks}>
+          <a href="https://github.com/LoLei">
+            <FaGithub />
+          </a>
+          <a href="https://gitlab.com/LoLei">
+            <FaGitlab />
+          </a>
+          <a href="https://www.linkedin.com/in/lorenzleitner">
+            <FaLinkedin />
+          </a>
+          <a href="https://twitter.com/lorenzleitner">
+            <FaTwitter />
+          </a>
+          <a href="https://instagram.com/lorenzleitner">
+            <FaInstagram />
+          </a>
+          <a href="https://facebook.com/lorenzleitner">
+            <FaFacebook />
+          </a>
+        </div>
       </div>
     </div>
   );

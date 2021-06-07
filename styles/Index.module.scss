@@ -1,4 +1,5 @@
 @use 'mixins';
+@use 'theme';
 
 .container {
   height: 100%;
@@ -18,6 +19,20 @@
 
     p {
       text-align: center;
+    }
+  }
+
+  .socials {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .socialsLinks {
+      a {
+        padding: 0 0.5em;
+        color: theme.$fg;
+        font-size: 1.25em;
+      }
     }
   }
 }
