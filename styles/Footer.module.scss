@@ -1,5 +1,7 @@
 @use "theme";
 
-.text {
-  color: theme.$mid;
+.style {
+  a {
+    color: theme.$mid;
+  }
 }
