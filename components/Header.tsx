@@ -11,6 +11,10 @@ const Header = (): JSX.Element => {
         <HeaderSeparator />
       </span>
       <HeaderLink routeName="/about" displayName="About" />
+      <span className={styles.separator}>
+        <HeaderSeparator />
+      </span>
+      <HeaderLink routeName="/posts" displayName="Posts" />
     </header>
   );
 };
