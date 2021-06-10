@@ -1,0 +1,7 @@
+@use 'mixins';
+
+.container {
+  height: 100%;
+  @include mixins.center-content;
+  flex-direction: column;
+}
