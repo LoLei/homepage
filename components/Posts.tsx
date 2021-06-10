@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from '../styles/Posts.module.scss';
 import mockPosts from '../resources/mock-posts.json';
+import Link from 'next/link';
 
-const Index = (): JSX.Element => {
+const Posts = (): JSX.Element => {
   return (
     <div className={styles.container}>
       <div className={styles.heading}>
@@ -13,7 +14,11 @@ const Index = (): JSX.Element => {
         {(mockPosts as Post[]).map((post, idx) => {
           return (
             <div key={idx}>
-              {post.id}: {post.fileName}
+              <Link href={`/posts/${post.id}`}>
+                <a>
+                  {post.id}: {post.fileName}
+                </a>
+              </Link>
             </div>
           );
         })}
@@ -22,7 +27,7 @@ const Index = (): JSX.Element => {
   );
 };
 
-export default Index;
+export default Posts;
 
 interface Post {
   id: number;
