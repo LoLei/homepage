@@ -2,12 +2,13 @@ import React from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { IPost } from '../../components/Posts';
 import mockPosts from '../../resources/mock-posts.json';
+import Post from '../../components/Post';
 
-const Post = (props: IProps): JSX.Element => {
-  return <p>Post: {props.postData.fileName}</p>;
+const PostPage = (props: IProps): JSX.Element => {
+  return <Post postData={props.postData} />;
 };
 
-export default Post;
+export default PostPage;
 
 interface IProps {
   postData: IPost;
