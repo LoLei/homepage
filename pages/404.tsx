@@ -11,7 +11,9 @@ const NotFound = (): JSX.Element => {
       <h1>404 - Page Not Found</h1>
       <div>
         <div>
-          <span onClick={() => router.back()}><a>Back</a></span>
+          <span onClick={() => router.back()}>
+            <a>Back</a>
+          </span>
         </div>
         <Link href="/">
           <a>Home</a>
