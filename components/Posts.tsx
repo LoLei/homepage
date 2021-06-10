@@ -11,7 +11,7 @@ const Posts = (): JSX.Element => {
       </div>
 
       <div className={styles.postList}>
-        {(mockPosts as Post[]).map((post, idx) => {
+        {(mockPosts as IPost[]).map((post, idx) => {
           return (
             <div key={idx}>
               <Link href={`/posts/${post.id}`}>
@@ -29,7 +29,7 @@ const Posts = (): JSX.Element => {
 
 export default Posts;
 
-interface Post {
+export interface IPost {
   id: number;
   fileName: string;
   content: string;
