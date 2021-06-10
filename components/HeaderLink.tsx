@@ -6,9 +6,18 @@ import styles from '../styles/HeaderLink.module.scss';
 const HeaderLink = (props: IProps): JSX.Element => {
   const router = useRouter();
 
+  /**
+   * Returns true for subroutes, handles '/' separately
+   */
+  const shouldBeActive = (): boolean => {
+    return (
+      (router.route.startsWith(props.routeName) && props.routeName.length !== 1) || props.routeName === router.route
+    );
+  };
+
   return (
     <Link href={props.routeName}>
-      <a className={router.route === props.routeName ? styles.active : ''}>{props.displayName}</a>
+      <a className={shouldBeActive() ? styles.active : ''}>{props.displayName}</a>
     </Link>
   );
 };
