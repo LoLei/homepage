@@ -3,7 +3,9 @@ import styles from '../styles/Posts.module.scss';
 import mockPosts from '../resources/mock-posts.json';
 import Link from 'next/link';
 
-const Posts = (): JSX.Element => {
+const Posts = (props: IProps): JSX.Element => {
+  console.log(props.postListings);
+
   return (
     <div className={styles.container}>
       <div className={styles.heading}>
@@ -29,8 +31,19 @@ const Posts = (): JSX.Element => {
 
 export default Posts;
 
+interface IProps {
+  postListings: IPostMetaData[];
+}
+
+export interface IPostMetaData {
+  name: string;
+  sha: string;
+  size: number;
+  downloadUrl: string;
+}
+
 export interface IPost {
-  id: number;
+  id: string;
   fileName: string;
   content: string;
 }

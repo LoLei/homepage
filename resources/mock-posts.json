@@ -1,16 +1,16 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "fileName": "2021-06-10-first-post.md",
     "content": "#Post 1\nHello world\n"
   },
   {
-    "id": 2,
+    "id": "2",
     "fileName": "2021-06-11-another-post.md",
     "content": "#Post 2\nHello world again\n"
   },
   {
-    "id": 3,
+    "id": "3",
     "fileName": "2021-06-12-yet-another-post.md",
     "content": "#Post 3\nHello world again^2\n"
   }

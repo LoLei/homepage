@@ -16,7 +16,7 @@ interface IProps {
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   const { pid } = context.query;
-  const post = (mockPosts as IPost[]).find((p: IPost) => p.id === parseInt(pid as string));
+  const post = (mockPosts as IPost[]).find((p: IPost) => p.id === pid);
 
   if (post == null) {
     return {
