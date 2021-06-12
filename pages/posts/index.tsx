@@ -17,15 +17,16 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const res = await fetch('https://api.github.com/repos/LoLei/posts/contents', {
       headers: new Headers({
         Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        Accept: 'application/vnd.github.v3+json',
       }),
     });
     if (!res.ok) {
-      // TODO: Error handling
+      console.error(res.status, res.statusText);
       return [];
     }
     const data: any[] = await res.json();
-    return data.map(({ name, sha, size, download_url }) => {
-      return { name, sha, size, downloadUrl: download_url };
+    return data.map(({ name, sha, size }) => {
+      return { name, sha, size };
     });
   };
 

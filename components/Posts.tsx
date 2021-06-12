@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from '../styles/Posts.module.scss';
-import mockPosts from '../resources/mock-posts.json';
 import Link from 'next/link';
 
 const Posts = (props: IProps): JSX.Element => {
@@ -13,12 +12,12 @@ const Posts = (props: IProps): JSX.Element => {
       </div>
 
       <div className={styles.postList}>
-        {(mockPosts as IPost[]).map((post, idx) => {
+        {props.postListings.map((pl, idx) => {
           return (
             <div key={idx}>
-              <Link href={`/posts/${post.id}`}>
+              <Link href={`/posts/${pl.name}`}>
                 <a>
-                  {post.id}: {post.fileName}
+                  {pl.sha}: {pl.name}
                 </a>
               </Link>
             </div>
@@ -39,7 +38,6 @@ export interface IPostMetaData {
   name: string;
   sha: string;
   size: number;
-  downloadUrl: string;
 }
 
 export interface IPost {
