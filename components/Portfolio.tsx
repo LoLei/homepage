@@ -14,8 +14,7 @@ const Portfolio = (): JSX.Element => {
 
       <h2>Legacy Portfolio</h2>
       <div>
-        This contains more/older/smaller projects:
-        {" "}
+        This contains more/older/smaller projects:{' '}
         <Link href="/portfolio/legacy">
           <a>Link</a>
         </Link>
