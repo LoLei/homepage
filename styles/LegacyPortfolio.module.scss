@@ -1,0 +1,20 @@
+@use 'variables';
+@use 'mixins';
+
+.container {
+  height: 100%;
+  @include mixins.center-content;
+
+  @media only screen and (max-width: variables.$tablet-width) {
+    margin-left: 2vw;
+    margin-right: 2vw;
+  }
+
+  .content {
+    width: 50em;
+
+    @media only screen and (max-width: variables.$mid-width) {
+      width: unset;
+    }
+  }
+}

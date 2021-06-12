@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import styles from '../styles/Portfolio.module.scss';
 
@@ -12,7 +13,13 @@ const Portfolio = (): JSX.Element => {
       <div>Some larger and more recent projects.</div>
 
       <h2>Legacy Portfolio</h2>
-      <div>This contains more/older/smaller projects.</div>
+      <div>
+        This contains more/older/smaller projects:
+        {" "}
+        <Link href="/portfolio/legacy">
+          <a>Link</a>
+        </Link>
+      </div>
     </div>
   );
 };
