@@ -16,5 +16,9 @@
     @media only screen and (max-width: variables.$mid-width) {
       width: unset;
     }
+
+    pre {
+      width: 100vw;
+    }
   }
 }
