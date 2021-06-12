@@ -1,23 +1,16 @@
 import React from 'react';
 import HeaderSeparator from '../components/HeaderSeparator';
-import styles from '../styles/Header.module.scss';
 import HeaderLink from './HeaderLink';
 
 const Header = (): JSX.Element => {
   return (
     <header>
       <HeaderLink routeName="/" displayName="Home" />
-      <span className={styles.separator}>
-        <HeaderSeparator />
-      </span>
+      <HeaderSeparator />
       <HeaderLink routeName="/about" displayName="About" />
-      <span className={styles.separator}>
-        <HeaderSeparator />
-      </span>
+      <HeaderSeparator />
       <HeaderLink routeName="/posts" displayName="Posts" />
-      <span className={styles.separator}>
-        <HeaderSeparator />
-      </span>
+      <HeaderSeparator />
       <HeaderLink routeName="/portfolio" displayName="Portfolio" />
     </header>
   );
