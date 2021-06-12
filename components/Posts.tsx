@@ -6,7 +6,7 @@ const Posts = (props: IProps): JSX.Element => {
   return (
     <div className={styles.container}>
       <div>
-        <h1>Posts about various things</h1>
+        <h1>Posts about things</h1>
       </div>
 
       <div>
