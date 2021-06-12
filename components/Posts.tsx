@@ -3,22 +3,20 @@ import styles from '../styles/Posts.module.scss';
 import Link from 'next/link';
 
 const Posts = (props: IProps): JSX.Element => {
-  console.log(props.postListings);
-
   return (
     <div className={styles.container}>
-      <div className={styles.heading}>
+      <div>
         <h1>Posts about various things</h1>
       </div>
 
-      <div className={styles.postList}>
+      <div>
         {props.postListings.map((pl, idx) => {
           return (
             <div key={idx}>
+              {props.postListings.length - idx}
+              {': '}
               <Link href={`/posts/${pl.name}`}>
-                <a>
-                  {pl.sha}: {pl.name}
-                </a>
+                <a>{pl.name}</a>
               </Link>
             </div>
           );

@@ -25,9 +25,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
       return [];
     }
     const data: any[] = await res.json();
-    return data.map(({ name, sha, size }) => {
-      return { name, sha, size };
-    });
+    return data
+      .map(({ name, sha, size }) => {
+        return { name, sha, size };
+      })
+      .reverse();
   };
 
   const posts = await getListOfPosts();

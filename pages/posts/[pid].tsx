@@ -4,7 +4,6 @@ import { IPost } from '../../components/Posts';
 import Post from '../../components/Post';
 
 const PostPage = (props: IProps): JSX.Element => {
-  console.log(props.postData);
   return <Post postData={props.postData} />;
 };
 
