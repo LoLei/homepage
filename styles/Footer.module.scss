@@ -1,7 +1,10 @@
 @use "theme";
 
 .style {
-  a {
-    color: theme.$mid;
+  span {
+    a {
+      // color: theme.$mid !important;
+      color: theme.$mid;
+    }
   }
 }

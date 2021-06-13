@@ -1,5 +1,16 @@
 @use "theme";
 
-.active {
-  color: theme.$link-hover;
+.container {
+  a {
+    color: theme.$link !important;
+
+    &:hover {
+      color: theme.$link-hover !important;
+    }
+  }
+
+  .active {
+    color: theme.$link-hover !important;
+  }
 }
+

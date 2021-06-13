@@ -16,9 +16,11 @@ const HeaderLink = (props: IProps): JSX.Element => {
   };
 
   return (
-    <Link href={props.routeName}>
-      <a className={shouldBeActive() ? styles.active : ''}>{props.displayName}</a>
-    </Link>
+    <span className={styles.container}>
+      <Link href={props.routeName}>
+        <a className={shouldBeActive() ? styles.active : ''}>{props.displayName}</a>
+      </Link>
+    </span>
   );
 };
 

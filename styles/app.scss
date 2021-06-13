@@ -25,6 +25,14 @@ body {
     &:hover {
       color: theme.$link-hover;
     }
+
+    &:hover:visited {
+      color: theme.$link-hover;
+    }
+
+    &:visited {
+      color: theme.$link-visited;
+    }
   }
 
   .container {
