@@ -1,19 +1,23 @@
 {
   "personal": [
-    { "name": "homepage", "owner": "LoLei" },
-    { "name": "razer-cli", "owner": "LoLei" },
-    { "name": "ircbot", "owner": "LoLei" },
-    { "name": "spmf-py", "owner": "LoLei" },
-    { "name": "redditcleaner", "owner": "LoLei" }
+    { "name": "homepage", "owner": "LoLei", "url": "https://github.com/LoLei/homepage" },
+    { "name": "razer-cli", "owner": "LoLei", "url": "https://github.com/LoLei/razer-cli" },
+    { "name": "ircbot", "owner": "LoLei", "url": "https://github.com/LoLei/ircbot" },
+    { "name": "spmf-py", "owner": "LoLei", "url": "https://github.com/LoLei/spmf-py" },
+    { "name": "redditcleaner", "owner": "LoLei", "url": "https://github.com/LoLei/redditcleaner" }
   ],
   "openSource": [
-    { "name": "lmrdashboard", "owner": "r-lmr" },
-    { "name": "pastor", "owner": "LoLei" }
+    { "name": "lmrdashboard", "owner": "r-lmr", "url": "https://github.com/LoLei/lmrdashboard" },
+    { "name": "pastor", "owner": "cocainefarm", "url": "https://gitlab.com/cocainefarm/pastor" }
   ],
   "school": [
-    { "name": "YACA", "owner": "LoLei" },
-    { "name": "YASM", "owner": "LoLei" },
-    { "name": "design-patterns-examples", "owner": "LoLei" },
-    { "name": "kurve", "owner": "tulsd" }
+    { "name": "YACA", "owner": "LoLei", "url": "https://github.com/LoLei/YACA" },
+    { "name": "YASM", "owner": "LoLei", "url": "https://github.com/LoLei/YASM" },
+    {
+      "name": "design-patterns-examples",
+      "owner": "LoLei",
+      "url": "https://github.com/LoLei/design-patterns-examples"
+    },
+    { "name": "kurve", "owner": "tulsd", "url": "https://github.com/tulsd/kurve" }
   ]
 }

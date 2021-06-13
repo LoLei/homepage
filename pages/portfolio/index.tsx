@@ -22,8 +22,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
       console.error(res.status, res.statusText);
       return undefined;
     }
-    const { name, stargazers_count, language, topics } = await res.json();
-    return { name, stargazersCount: stargazers_count, language, topics };
+    const { name, stargazers_count, language, topics, description } = await res.json();
+    return { name, stargazersCount: stargazers_count, language, topics, description };
   };
 
   const getPortFolioItemsViaGithub = async (specs: IPortFolioItemSpecification[]) => {
@@ -61,9 +61,11 @@ interface IPortFolioItem {
   stargazersCount: number;
   language: string;
   topics: string[];
+  description: string;
 }
 
 interface IPortFolioItemSpecification {
   name: string;
   owner: string;
+  url: string;
 }
