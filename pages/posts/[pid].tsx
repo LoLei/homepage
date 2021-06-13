@@ -1,8 +1,8 @@
 import React from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Post from '../../components/Post';
-import GithubService from '../../util/git/GithubService';
 import { IRepositoryContentEntry } from '../../util/git/AbstractGitService';
+import GitDelegator from '../../util/git/GitDelegator';
 
 const PostPage = (props: IProps): JSX.Element => {
   return <Post postData={props.postData} />;
@@ -17,8 +17,8 @@ interface IProps {
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   // TODO: Rename pid to postName or something
   const { pid } = context.query;
-  const githubService = new GithubService();
-  const post = await githubService.getRepositoryFileContent('posts', pid as string);
+  const gitService = new GitDelegator();
+  const post = await gitService.getRepositoryFileContent(`https://github.com/LoLei/posts/${pid}`);
 
   if (post == null) {
     return {

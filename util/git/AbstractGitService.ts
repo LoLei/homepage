@@ -1,7 +1,7 @@
 abstract class AbstractGitService {
-  abstract getRepository(owner: string, repoName: string): Promise<IRepositoryMetadata | undefined>;
-  abstract getRepositoryContentList(repoName: string): Promise<IRepositoryContentEntryMetadata[]>;
-  abstract getRepositoryFileContent(repoName: string, fileName: string): Promise<IRepositoryContentEntry | undefined>;
+  abstract getRepository(url: string): Promise<IRepositoryMetadata | undefined>;
+  abstract getRepositoryContentList(url: string): Promise<IRepositoryContentEntryMetadata[]>;
+  abstract getRepositoryFileContent(url: string): Promise<IRepositoryContentEntry | undefined>;
 }
 
 export interface IRepositoryMetadata {
@@ -22,6 +22,13 @@ export interface IRepositoryContentEntry {
   id: string;
   fileName: string;
   content: string;
+}
+
+export interface IUrlParseResult {
+  valid: boolean;
+  owner?: string;
+  repoName?: string;
+  fileName?: string;
 }
 
 export default AbstractGitService;

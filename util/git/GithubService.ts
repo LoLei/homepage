@@ -2,11 +2,37 @@ import AbstractGitService, {
   IRepositoryContentEntry,
   IRepositoryContentEntryMetadata,
   IRepositoryMetadata,
+  IUrlParseResult,
 } from './AbstractGitService';
 
 class GithubService extends AbstractGitService {
-  public async getRepository(owner: string, repoName: string): Promise<IRepositoryMetadata | undefined> {
-    const res = await fetch(`https://api.github.com/repos/${owner}/${repoName}`, {
+  private readonly baseApiUrl: string;
+
+  public constructor() {
+    super();
+    this.baseApiUrl = 'https://api.github.com/repos';
+  }
+
+  protected parseUrlParts(url: string): IUrlParseResult {
+    // TODO: Unit test
+    const match = /https:\/\/github.com\/(?<owner>[\w-_]+)\/(?<repoName>[\w-_]+)\/?(?<fileName>[\w-_.]+)?/.exec(url);
+    if (match == null) {
+      return { valid: false };
+    }
+    return {
+      valid: true,
+      owner: match.groups?.owner,
+      repoName: match.groups?.repoName,
+      fileName: match.groups?.fileName,
+    };
+  }
+
+  public async getRepository(url: string): Promise<IRepositoryMetadata | undefined> {
+    const urlParts = this.parseUrlParts(url);
+    if (!urlParts.valid) {
+      return undefined;
+    }
+    const res = await fetch(`${this.baseApiUrl}/${urlParts.owner}/${urlParts.repoName}`, {
       headers: new Headers({
         Authorization: `token ${process.env.GITHUB_TOKEN}`,
         Accept: 'application/vnd.github.mercy-preview+json', // mercy-preview needed for topics
@@ -20,8 +46,12 @@ class GithubService extends AbstractGitService {
     return { name, stargazersCount: stargazers_count, language, topics, description };
   }
 
-  public async getRepositoryContentList(repoName: string): Promise<IRepositoryContentEntryMetadata[]> {
-    const res = await fetch(`https://api.github.com/repos/LoLei/${repoName}/contents`, {
+  public async getRepositoryContentList(url: string): Promise<IRepositoryContentEntryMetadata[]> {
+    const urlParts = this.parseUrlParts(url);
+    if (!urlParts.valid) {
+      return [];
+    }
+    const res = await fetch(`${this.baseApiUrl}/${urlParts.owner}/${urlParts.repoName}/contents`, {
       headers: new Headers({
         Authorization: `token ${process.env.GITHUB_TOKEN}`,
         Accept: 'application/vnd.github.v3+json',
@@ -39,11 +69,12 @@ class GithubService extends AbstractGitService {
       .reverse();
   }
 
-  public async getRepositoryFileContent(
-    repoName: string,
-    fileName: string
-  ): Promise<IRepositoryContentEntry | undefined> {
-    const res = await fetch(`https://api.github.com/repos/LoLei/${repoName}/contents/${fileName}`, {
+  public async getRepositoryFileContent(url: string): Promise<IRepositoryContentEntry | undefined> {
+    const urlParts = this.parseUrlParts(url);
+    if (!urlParts.valid) {
+      return undefined;
+    }
+    const res = await fetch(`${this.baseApiUrl}/${urlParts.owner}/${urlParts.repoName}/contents/${urlParts.fileName}`, {
       headers: new Headers({
         Authorization: `token ${process.env.GITHUB_TOKEN}`,
         Accept: 'application/vnd.github.v3.raw',
@@ -54,7 +85,7 @@ class GithubService extends AbstractGitService {
       return undefined;
     }
     const data: string = await res.text();
-    return { id: fileName, fileName: fileName, content: data };
+    return { id: urlParts.fileName!, fileName: urlParts.fileName!, content: data };
   }
 }
 
