@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import styles from '../styles/Post.module.scss';
-import { IPost } from './Posts';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { funky } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import gfm from 'remark-gfm';
+import { IRepositoryContentEntry } from '../util/git/AbstractGitService';
 
 /*eslint-disable */
 const components = {
@@ -46,5 +46,5 @@ const Posts = (props: IProps): JSX.Element => {
 export default Posts;
 
 export interface IProps {
-  postData: IPost;
+  postData: IRepositoryContentEntry;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../styles/Posts.module.scss';
 import Link from 'next/link';
+import { IRepositoryContentEntryMetadata } from '../util/git/AbstractGitService';
 
 const Posts = (props: IProps): JSX.Element => {
   return (
@@ -29,17 +30,5 @@ const Posts = (props: IProps): JSX.Element => {
 export default Posts;
 
 interface IProps {
-  postListings: IPostMetaData[];
-}
-
-export interface IPostMetaData {
-  name: string;
-  sha: string;
-  size: number;
-}
-
-export interface IPost {
-  id: string;
-  fileName: string;
-  content: string;
+  postListings: IRepositoryContentEntryMetadata[];
 }

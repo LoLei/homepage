@@ -1,6 +1,8 @@
 import { GetServerSideProps } from 'next';
 import React from 'react';
-import Posts, { IPostMetaData } from '../../components/Posts';
+import Posts from '../../components/Posts';
+import { IRepositoryContentEntryMetadata } from '../../util/git/AbstractGitService';
+import GithubService from '../../util/git/GithubService';
 
 const PostsPage = (props: IProps): JSX.Element => {
   return <Posts postListings={props.postListings} />;
@@ -9,30 +11,12 @@ const PostsPage = (props: IProps): JSX.Element => {
 export default PostsPage;
 
 interface IProps {
-  postListings: IPostMetaData[];
+  postListings: IRepositoryContentEntryMetadata[];
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const getListOfPosts = async (): Promise<IPostMetaData[]> => {
-    const res = await fetch('https://api.github.com/repos/LoLei/posts/contents', {
-      headers: new Headers({
-        Authorization: `token ${process.env.GITHUB_TOKEN}`,
-        Accept: 'application/vnd.github.v3+json',
-      }),
-    });
-    if (!res.ok) {
-      console.error(res.status, res.statusText);
-      return [];
-    }
-    const data: any[] = await res.json();
-    return data
-      .map(({ name, sha, size }) => {
-        return { name, sha, size };
-      })
-      .reverse();
-  };
-
-  const posts = await getListOfPosts();
+  const githubService = new GithubService();
+  const posts = await githubService.getRepositoryContentList('posts');
 
   if (posts.length === 0) {
     return {

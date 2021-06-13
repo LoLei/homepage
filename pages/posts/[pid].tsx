@@ -1,7 +1,8 @@
 import React from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { IPost } from '../../components/Posts';
 import Post from '../../components/Post';
+import GithubService from '../../util/git/GithubService';
+import { IRepositoryContentEntry } from '../../util/git/AbstractGitService';
 
 const PostPage = (props: IProps): JSX.Element => {
   return <Post postData={props.postData} />;
@@ -10,27 +11,14 @@ const PostPage = (props: IProps): JSX.Element => {
 export default PostPage;
 
 interface IProps {
-  postData: IPost;
+  postData: IRepositoryContentEntry;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-  const getPostContent = async (postName: string): Promise<IPost | undefined> => {
-    const res = await fetch(`https://api.github.com/repos/LoLei/posts/contents/${postName}`, {
-      headers: new Headers({
-        Authorization: `token ${process.env.GITHUB_TOKEN}`,
-        Accept: 'application/vnd.github.v3.raw',
-      }),
-    });
-    if (!res.ok) {
-      console.error(res.status, res.statusText);
-      return undefined;
-    }
-    const data: string = await res.text();
-    return { id: postName, fileName: postName, content: data };
-  };
-
+  // TODO: Rename pid to postName or something
   const { pid } = context.query;
-  const post = await getPostContent(pid as string);
+  const githubService = new GithubService();
+  const post = await githubService.getRepositoryFileContent('posts', pid as string);
 
   if (post == null) {
     return {
