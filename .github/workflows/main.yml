@@ -27,6 +27,6 @@ jobs:
 
       - name: Build project
         run: yarn build
-        
+
       - name: Test via jest
         run: yarn test:unit-ci
