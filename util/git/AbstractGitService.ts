@@ -30,11 +30,4 @@ export interface IRepositoryContentEntry {
   content: string;
 }
 
-export interface IUrlParseResult {
-  valid: boolean;
-  owner?: string;
-  repoName?: string;
-  fileName?: string;
-}
-
 export default AbstractGitService;

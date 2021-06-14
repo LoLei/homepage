@@ -2,18 +2,12 @@ import AbstractGitService, {
   IRepositoryContentEntry,
   IRepositoryContentEntryMetadata,
   IRepositoryMetadata,
-  IUrlParseResult,
 } from './AbstractGitService';
 
 class GitlabService extends AbstractGitService {
   public constructor() {
     // TODO: Change
     super('https://api.github.com/repos');
-  }
-
-  private parseUrlParts(url: string): IUrlParseResult {
-    console.error(`${this.constructor.name} not yet implemented`);
-    return { valid: false };
   }
 
   public async getRepository(url: string): Promise<IRepositoryMetadata | undefined> {

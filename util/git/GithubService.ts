@@ -2,30 +2,16 @@ import AbstractGitService, {
   IRepositoryContentEntry,
   IRepositoryContentEntryMetadata,
   IRepositoryMetadata,
-  IUrlParseResult,
 } from './AbstractGitService';
+import UrlParser from './UrlParser';
 
 class GithubService extends AbstractGitService {
   public constructor() {
     super('https://api.github.com/repos');
   }
 
-  private parseUrlParts(url: string): IUrlParseResult {
-    // TODO: Unit test
-    const match = /https:\/\/github.com\/(?<owner>[\w-_]+)\/(?<repoName>[\w-_]+)\/?(?<fileName>[\w-_.]+)?/.exec(url);
-    if (match == null) {
-      return { valid: false };
-    }
-    return {
-      valid: true,
-      owner: match.groups?.owner,
-      repoName: match.groups?.repoName,
-      fileName: match.groups?.fileName,
-    };
-  }
-
   public async getRepository(url: string): Promise<IRepositoryMetadata | undefined> {
-    const urlParts = this.parseUrlParts(url);
+    const urlParts = UrlParser.parseUrlPartsGithub(url);
     if (!urlParts.valid) {
       return undefined;
     }
@@ -44,7 +30,7 @@ class GithubService extends AbstractGitService {
   }
 
   public async getRepositoryContentList(url: string): Promise<IRepositoryContentEntryMetadata[]> {
-    const urlParts = this.parseUrlParts(url);
+    const urlParts = UrlParser.parseUrlPartsGithub(url);
     if (!urlParts.valid) {
       return [];
     }
@@ -67,7 +53,7 @@ class GithubService extends AbstractGitService {
   }
 
   public async getRepositoryFileContent(url: string): Promise<IRepositoryContentEntry | undefined> {
-    const urlParts = this.parseUrlParts(url);
+    const urlParts = UrlParser.parseUrlPartsGithub(url);
     if (!urlParts.valid) {
       return undefined;
     }

@@ -5,6 +5,7 @@ import AbstractGitService, {
 } from './AbstractGitService';
 import GithubService from './GithubService';
 import GitlabService from './GitlabService';
+import UrlParser from './UrlParser';
 
 /**
  * Singleton that holds concrete git services to which requests are delegated, according to their URL, so far:
@@ -32,14 +33,6 @@ class GitDelegator extends AbstractGitService {
     );
   }
 
-  private getGitServiceType(url: string): string | undefined {
-    const match = /https:\/\/(?<serviceName>github|gitlab).com.*/.exec(url);
-    if (match == null) {
-      return undefined;
-    }
-    return match.groups?.serviceName;
-  }
-
   private callMethodWithAppropriateService(
     methodName: 'getRepository' | 'getRepositoryContentList' | 'getRepositoryFileContent',
     url: string
@@ -47,7 +40,7 @@ class GitDelegator extends AbstractGitService {
     | Promise<IRepositoryMetadata | undefined>
     | Promise<IRepositoryContentEntryMetadata[]>
     | Promise<IRepositoryContentEntry | undefined> {
-    const serviceName = this.getGitServiceType(url);
+    const serviceName = UrlParser.getGitServiceType(url);
     if (this.services.has(serviceName || '')) {
       return this.services.get(serviceName!)![methodName](url);
     }
