@@ -11,7 +11,7 @@ class GitlabService extends AbstractGitService {
     super('https://api.github.com/repos');
   }
 
-  protected parseUrlParts(url: string): IUrlParseResult {
+  private parseUrlParts(url: string): IUrlParseResult {
     console.error(`${this.constructor.name} not yet implemented`);
     return { valid: false };
   }

@@ -10,7 +10,7 @@ class GithubService extends AbstractGitService {
     super('https://api.github.com/repos');
   }
 
-  protected parseUrlParts(url: string): IUrlParseResult {
+  private parseUrlParts(url: string): IUrlParseResult {
     // TODO: Unit test
     const match = /https:\/\/github.com\/(?<owner>[\w-_]+)\/(?<repoName>[\w-_]+)\/?(?<fileName>[\w-_.]+)?/.exec(url);
     if (match == null) {
