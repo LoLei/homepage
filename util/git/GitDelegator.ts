@@ -6,7 +6,8 @@ import AbstractGitService, {
 import GithubService from './GithubService';
 import GitlabService from './GitlabService';
 
-// TODO: Rename to GitService, and have Github/Gitlab inherit from it
+// TODO: Rename to GitService, and have Github/Gitlab inherit from it,
+//  if possible/it makes sense
 class GitDelegator extends AbstractGitService {
   private static _instance: GitDelegator;
   private readonly services: Map<string, AbstractGitService>;
@@ -30,34 +31,36 @@ class GitDelegator extends AbstractGitService {
     return match.groups?.serviceName;
   }
 
-  getRepository(url: string): Promise<IRepositoryMetadata | undefined> {
+  private callMethodWithAppropriateService(
+    methodName: 'getRepository' | 'getRepositoryContentList' | 'getRepositoryFileContent',
+    url: string
+  ):
+    | Promise<IRepositoryMetadata | undefined>
+    | Promise<IRepositoryContentEntryMetadata[]>
+    | Promise<IRepositoryContentEntry | undefined> {
     const serviceName = this.getGitServiceType(url);
     if (this.services.has(serviceName || '')) {
-      return this.services.get(serviceName!)!.getRepository(url);
+      return this.services.get(serviceName!)![methodName](url);
     }
     console.error(`Unsupported git URL: ${url}`);
     console.warn('Attempting Github service as fallback');
-    return this.services.get('github')!.getRepository(url);
+    return this.services.get('github')![methodName](url);
   }
 
-  getRepositoryContentList(url: string): Promise<IRepositoryContentEntryMetadata[]> {
-    const serviceName = this.getGitServiceType(url);
-    if (this.services.has(serviceName || '')) {
-      return this.services.get(serviceName!)!.getRepositoryContentList(url);
-    }
-    console.error(`Unsupported git URL: ${url}`);
-    console.warn('Attempting Github service as fallback');
-    return this.services.get('github')!.getRepositoryContentList(url);
+  public getRepository(url: string): Promise<IRepositoryMetadata | undefined> {
+    return this.callMethodWithAppropriateService('getRepository', url) as Promise<IRepositoryMetadata | undefined>;
   }
 
-  getRepositoryFileContent(url: string): Promise<IRepositoryContentEntry | undefined> {
-    const serviceName = this.getGitServiceType(url);
-    if (this.services.has(serviceName || '')) {
-      return this.services.get(serviceName!)!.getRepositoryFileContent(url);
-    }
-    console.error(`Unsupported git URL: ${url}`);
-    console.warn('Attempting Github service as fallback');
-    return this.services.get('github')!.getRepositoryFileContent(url);
+  public getRepositoryContentList(url: string): Promise<IRepositoryContentEntryMetadata[]> {
+    return this.callMethodWithAppropriateService('getRepositoryContentList', url) as Promise<
+      IRepositoryContentEntryMetadata[]
+    >;
+  }
+
+  public getRepositoryFileContent(url: string): Promise<IRepositoryContentEntry | undefined> {
+    return this.callMethodWithAppropriateService('getRepositoryFileContent', url) as Promise<
+      IRepositoryContentEntry | undefined
+    >;
   }
 }
 
