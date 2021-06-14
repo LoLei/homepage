@@ -6,12 +6,9 @@ import AbstractGitService, {
 } from './AbstractGitService';
 
 class GitlabService extends AbstractGitService {
-  private readonly baseApiUrl: string;
-
   public constructor() {
-    super();
     // TODO: Change
-    this.baseApiUrl = 'https://api.github.com/repos';
+    super('https://api.github.com/repos');
   }
 
   protected parseUrlParts(url: string): IUrlParseResult {

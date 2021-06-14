@@ -6,21 +6,30 @@ import AbstractGitService, {
 import GithubService from './GithubService';
 import GitlabService from './GitlabService';
 
-// TODO: Rename to GitService, and have Github/Gitlab inherit from it,
-//  if possible/it makes sense
+/**
+ * Singleton that holds concrete git services to which requests are delegated, according to their URL, so far:
+ * - Github
+ * - Gitlab
+ */
 class GitDelegator extends AbstractGitService {
   private static _instance: GitDelegator;
   private readonly services: Map<string, AbstractGitService>;
 
-  public constructor() {
+  private constructor(services: Map<string, AbstractGitService>) {
     super();
-    this.services = new Map<string, AbstractGitService>();
-    this.services.set('github', new GithubService());
-    this.services.set('gitlab', new GitlabService());
+    this.services = services;
   }
 
   public static get Instance(): GitDelegator {
-    return this._instance || (this._instance = new this());
+    return (
+      this._instance ||
+      (this._instance = new this(
+        new Map<string, AbstractGitService>([
+          ['github', new GithubService()],
+          ['gitlab', new GitlabService()],
+        ])
+      ))
+    );
   }
 
   private getGitServiceType(url: string): string | undefined {

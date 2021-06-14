@@ -15,7 +15,7 @@ interface IProps {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const gitService = new GitDelegator();
+  const gitService = GitDelegator.Instance;
   const posts = await gitService.getRepositoryContentList('https://github.com/LoLei/posts');
 
   if (posts.length === 0) {

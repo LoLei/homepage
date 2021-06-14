@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     return rps;
   };
 
-  const gitService = new GitDelegator();
+  const gitService = GitDelegator.Instance;
   const personalPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGithub(
     portFolioItems.personal,
     gitService

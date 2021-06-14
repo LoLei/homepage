@@ -17,7 +17,7 @@ interface IProps {
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   // TODO: Rename pid to postName or something
   const { pid } = context.query;
-  const gitService = new GitDelegator();
+  const gitService = GitDelegator.Instance;
   const post = await gitService.getRepositoryFileContent(`https://github.com/LoLei/posts/${pid}`);
 
   if (post == null) {

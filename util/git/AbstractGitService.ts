@@ -1,4 +1,10 @@
 abstract class AbstractGitService {
+  protected baseApiUrl: string;
+
+  protected constructor(baseApiUrl?: string) {
+    this.baseApiUrl = baseApiUrl || '';
+  }
+
   abstract getRepository(url: string): Promise<IRepositoryMetadata | undefined>;
   abstract getRepositoryContentList(url: string): Promise<IRepositoryContentEntryMetadata[]>;
   abstract getRepositoryFileContent(url: string): Promise<IRepositoryContentEntry | undefined>;
