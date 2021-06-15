@@ -3,6 +3,7 @@
 This is the personal homepage of Lorenz Leitner (me).
 
 ## Features
+
 Uses the GitHub and GitLab API to pull in content from other repositories (live),
 i.e. no redeployment of the website is needed.  
 This is used mainly for posts in the blog section, and for items in the portfolio.
@@ -10,6 +11,7 @@ This is used mainly for posts in the blog section, and for items in the portfoli
 ## Environment Variables
 
 The following environment variables must be defined:
+
 ```
 EMAIL_ADDRESS
 GITHUB_TOKEN
@@ -20,6 +22,7 @@ They are defined in `.env.local` for next.js/local development.
 ## Development
 
 ### Local
+
 ```sh
 yarn install
 yarn dev
@@ -31,6 +34,7 @@ yarn start
 ```
 
 ### Container
+
 ```sh
 # Build
 podman build . -t lolei/homepage
@@ -49,4 +53,3 @@ podman run \
   -p 3000:3000 \
   lolei/homepage
 ```
-
