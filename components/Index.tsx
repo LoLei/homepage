@@ -5,7 +5,7 @@ import Obfuscate from 'react-obfuscate';
 import styles from '../styles/Index.module.scss';
 import { FaFacebook, FaGithub, FaGitlab, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
-const Index = (): JSX.Element => {
+const Index = (props: IProps): JSX.Element => {
   return (
     <div className={styles.container}>
       <div className={styles.heading}>
@@ -32,7 +32,7 @@ const Index = (): JSX.Element => {
       <div className={styles.contact}>
         <span>Email:</span>{' '}
         <Obfuscate
-          email={process.env.NEXT_PUBLIC_EMAIL_ADDRESS}
+          email={props.email}
           headers={{
             subject: 'Contact from Homepage',
           }}
@@ -67,3 +67,7 @@ const Index = (): JSX.Element => {
 };
 
 export default Index;
+
+interface IProps {
+  email: string;
+}
