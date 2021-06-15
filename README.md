@@ -36,7 +36,7 @@ yarn start
 podman build . -t lolei/homepage
 
 # Run
-export export $(xargs <.env.local)
+export $(xargs <.env.local)
 podman run \
   -e EMAIL_ADDRESS=$EMAIL_ADDRESS \
   -e GITHUB_TOKEN=$GITHUB_TOKEN \
