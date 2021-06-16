@@ -7,8 +7,12 @@ class UrlParser {
     return match.groups?.serviceName;
   }
 
-  public static parseUrlPartsGithub(url: string): IUrlParseResult {
-    const match = /https:\/\/github.com\/(?<owner>[\w-_]+)\/(?<repoName>[\w-_]+)\/?(?<fileName>[\w-_.]+)?/.exec(url);
+  public static parseGitUrlParts(url: string, repoType: 'github' | 'gitlab'): IUrlParseResult {
+    const regex =
+      repoType === 'github'
+        ? /https:\/\/github.com\/(?<owner>[\w-_]+)\/(?<repoName>[\w-_]+)\/?(?<fileName>[\w-_.]+)?/
+        : /https:\/\/gitlab.com\/(?<owner>[\w-_]+)\/(?<repoName>[\w-_]+)\/?(?<fileName>[\w-_.]+)?/;
+    const match = regex.exec(url);
     if (match == null) {
       return { valid: false };
     }

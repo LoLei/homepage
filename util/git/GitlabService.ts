@@ -3,14 +3,16 @@ import AbstractGitService, {
   IRepositoryContentEntryMetadata,
   IRepositoryMetadata,
 } from './AbstractGitService';
+import UrlParser from './UrlParser';
 
 class GitlabService extends AbstractGitService {
   public constructor() {
     // TODO: Change
-    super('https://api.github.com/repos');
+    super('https://gitlab.com/api/v4/projects');
   }
 
   public async getRepository(url: string): Promise<IRepositoryMetadata | undefined> {
+    const urlParts = UrlParser.parseGitUrlParts(url, 'gitlab');
     console.error(`${this.constructor.name} not yet implemented`);
     return undefined;
   }
