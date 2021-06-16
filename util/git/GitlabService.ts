@@ -7,8 +7,23 @@ import UrlParser from './UrlParser';
 
 class GitlabService extends AbstractGitService {
   public constructor() {
-    // TODO: Change
     super('https://gitlab.com/api/v4/projects');
+  }
+
+  public async getRepositoryMetadata(owner: string, repoName: string): Promise<IRepositoryMetadata | undefined> {
+    const res = await fetch(`${this.baseApiUrl}/${owner}%2F${repoName}`);
+    if (!res.ok) {
+      console.error(res.status, res.statusText);
+      return undefined;
+    }
+    const { name, star_count, topics, description } = await res.json();
+    return { name, stargazersCount: star_count, language: '', topics, description };
+  }
+
+  public async getRepositoryLanguages(owner: string, repoName: string): Promise<string[]> {
+    const langRes = await fetch(`${this.baseApiUrl}/${owner}%2F${repoName}/languages`);
+    const languages = await langRes.json();
+    return Object.keys(languages);
   }
 
   public async getRepository(url: string): Promise<IRepositoryMetadata | undefined> {
@@ -16,22 +31,19 @@ class GitlabService extends AbstractGitService {
     if (!urlParts.valid) {
       return undefined;
     }
-    const res = await fetch(`${this.baseApiUrl}/${urlParts.owner}%2F${urlParts.repoName}`);
-    if (!res.ok) {
-      console.error(res.status, res.statusText);
+
+    const repoDataMainPromise = this.getRepositoryMetadata(urlParts.owner!, urlParts.repoName!);
+    // Extra call for languages necessary in GitLab
+    const repoDataLanguagesPromise = this.getRepositoryLanguages(urlParts.owner!, urlParts.repoName!);
+
+    const [repoDataMain, repoDataLanguages] = await Promise.all([repoDataMainPromise, repoDataLanguagesPromise]);
+
+    if (repoDataMain == null) {
       return undefined;
     }
-    const { name, star_count, topics, description } = await res.json();
-    const repoMetadata = { name, stargazersCount: star_count, language: "", topics, description };
 
-    // Extra call for languages necessary in GitLab
-    const langRes = await fetch(`${this.baseApiUrl}/${urlParts.owner}%2F${urlParts.repoName}/languages`);
-    const languages = await langRes.json();
-    // They seem to be sorted
-    const topLang = Object.keys(languages)[0];
-    repoMetadata.language = topLang;
-
-    return repoMetadata;
+    repoDataMain.language = repoDataLanguages[0];
+    return repoDataMain;
   }
 
   public async getRepositoryContentList(url: string): Promise<IRepositoryContentEntryMetadata[]> {
