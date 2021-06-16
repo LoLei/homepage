@@ -13,12 +13,17 @@ const PortfolioPage = (props: IProps): JSX.Element => {
 export default PortfolioPage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const getPortFolioItemsViaGithub = async (specs: IPortFolioItemSpecification[], gitService: GitDelegator) => {
+  const getPortFolioItemsViaGithub = async (
+    specs: IPortFolioItemSpecification[],
+    gitService: GitDelegator
+  ) => {
     const ps: Promise<IRepositoryMetadata | undefined>[] = specs.map((pfi) => {
       return gitService.getRepository(pfi.url);
     });
 
-    const rps: IRepositoryMetadata[] = (await Promise.all(ps)).filter((it) => it) as IRepositoryMetadata[];
+    const rps: IRepositoryMetadata[] = (await Promise.all(ps)).filter(
+      (it) => it
+    ) as IRepositoryMetadata[];
     return rps;
   };
 
@@ -31,7 +36,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
     portFolioItems.openSource,
     gitService
   );
-  const schoolPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGithub(portFolioItems.school, gitService);
+  const schoolPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGithub(
+    portFolioItems.school,
+    gitService
+  );
 
   const [portfolioDataPersonal, portfolioDataOpenSource, portfolioDataSchool] = await Promise.all([
     personalPromise,

@@ -10,7 +10,10 @@ class GitlabService extends AbstractGitService {
     super('https://gitlab.com/api/v4/projects');
   }
 
-  public async getRepositoryMetadata(owner: string, repoName: string): Promise<IRepositoryMetadata | undefined> {
+  public async getRepositoryMetadata(
+    owner: string,
+    repoName: string
+  ): Promise<IRepositoryMetadata | undefined> {
     const res = await fetch(`${this.baseApiUrl}/${owner}%2F${repoName}`);
     if (!res.ok) {
       console.error(res.status, res.statusText);
@@ -34,9 +37,15 @@ class GitlabService extends AbstractGitService {
 
     const repoDataMainPromise = this.getRepositoryMetadata(urlParts.owner!, urlParts.repoName!);
     // Extra call for languages necessary in GitLab
-    const repoDataLanguagesPromise = this.getRepositoryLanguages(urlParts.owner!, urlParts.repoName!);
+    const repoDataLanguagesPromise = this.getRepositoryLanguages(
+      urlParts.owner!,
+      urlParts.repoName!
+    );
 
-    const [repoDataMain, repoDataLanguages] = await Promise.all([repoDataMainPromise, repoDataLanguagesPromise]);
+    const [repoDataMain, repoDataLanguages] = await Promise.all([
+      repoDataMainPromise,
+      repoDataLanguagesPromise,
+    ]);
 
     if (repoDataMain == null) {
       return undefined;

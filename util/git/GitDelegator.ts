@@ -50,7 +50,9 @@ class GitDelegator extends AbstractGitService {
   }
 
   public getRepository(url: string): Promise<IRepositoryMetadata | undefined> {
-    return this.callMethodWithAppropriateService('getRepository', url) as Promise<IRepositoryMetadata | undefined>;
+    return this.callMethodWithAppropriateService('getRepository', url) as Promise<
+      IRepositoryMetadata | undefined
+    >;
   }
 
   public getRepositoryContentList(url: string): Promise<IRepositoryContentEntryMetadata[]> {

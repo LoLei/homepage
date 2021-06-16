@@ -11,7 +11,8 @@ const HeaderLink = (props: IProps): JSX.Element => {
    */
   const shouldBeActive = (): boolean => {
     return (
-      (router.route.startsWith(props.routeName) && props.routeName.length !== 1) || props.routeName === router.route
+      (router.route.startsWith(props.routeName) && props.routeName.length !== 1) ||
+      props.routeName === router.route
     );
   };
 

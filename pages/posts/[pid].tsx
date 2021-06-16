@@ -14,7 +14,9 @@ interface IProps {
   postData: IRepositoryContentEntry;
 }
 
-export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   // TODO: Rename pid to postName or something
   const { pid } = context.query;
   const gitService = GitDelegator.Instance;

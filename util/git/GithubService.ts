@@ -57,12 +57,15 @@ class GithubService extends AbstractGitService {
     if (!urlParts.valid) {
       return undefined;
     }
-    const res = await fetch(`${this.baseApiUrl}/${urlParts.owner}/${urlParts.repoName}/contents/${urlParts.fileName}`, {
-      headers: new Headers({
-        Authorization: `token ${process.env.GITHUB_TOKEN}`,
-        Accept: 'application/vnd.github.v3.raw',
-      }),
-    });
+    const res = await fetch(
+      `${this.baseApiUrl}/${urlParts.owner}/${urlParts.repoName}/contents/${urlParts.fileName}`,
+      {
+        headers: new Headers({
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          Accept: 'application/vnd.github.v3.raw',
+        }),
+      }
+    );
     if (!res.ok) {
       console.error(res.status, res.statusText);
       return undefined;
