@@ -40,7 +40,7 @@ const Portfolio = (props: IProps): JSX.Element => {
       </div>
 
       <h2>Legacy Portfolio</h2>
-      <div>
+      <div className={styles.legacyPortfolio}>
         This contains many more (older/smaller) projects and open-source projects to which I&apos;ve
         contributed to a lesser amount:{' '}
         <Link href="/portfolio/legacy">
