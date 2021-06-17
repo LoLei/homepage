@@ -13,7 +13,12 @@
     "intro": "These projects are started and developed either by me with other people, or I have contributed to already existing codebases, i.e. they are more of a community-effort than pure personal ambition.",
     "items": [
       { "name": "lmrdashboard", "owner": "r-lmr", "url": "https://github.com/r-lmr/lmrdashboard" },
-      { "name": "pastor", "owner": "cocainefarm", "url": "https://gitlab.com/cocainefarm/pastor" }
+      {
+        "name": "pastor",
+        "owner": "cocainefarm",
+        "url": "https://gitlab.com/cocainefarm/pastor",
+        "description": "Curl and GUI file hosting web server deployed at https://c-v.sh"
+      }
     ]
   },
   "school": {

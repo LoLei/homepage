@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import React from 'react';
 import Portfolio from '../../components/Portfolio';
-import portFolioItems from '../../resources/portfolioItems.json';
+import portFolioItemsInput from '../../resources/portfolioItems.json';
 import { IRepositoryMetadata } from '../../util/git/AbstractGitService';
 import GitDelegator from '../../util/git/GitDelegator';
 
@@ -34,15 +34,15 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   const gitService = GitDelegator.Instance;
   const personalPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGithub(
-    portFolioItems.personal.items,
+    portFolioItemsInput.personal.items,
     gitService
   );
   const openSourcePromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGithub(
-    portFolioItems.openSource.items,
+    portFolioItemsInput.openSource.items,
     gitService
   );
   const schoolPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGithub(
-    portFolioItems.school.items,
+    portFolioItemsInput.school.items,
     gitService
   );
 
@@ -56,15 +56,24 @@ export const getServerSideProps: GetServerSideProps = async () => {
     props: {
       portfolioSectionPersonal: {
         portfolioDataItems: portfolioDataPersonal,
-        intro: portFolioItems.personal.intro,
+        intro: portFolioItemsInput.personal.intro,
       },
       portfolioSectionOpenSource: {
-        portfolioDataItems: portfolioDataOpenSource,
-        intro: portFolioItems.openSource.intro,
+        // Some open-source projects may not have a description
+        portfolioDataItems: portfolioDataOpenSource.map((i: IRepositoryMetadata) => {
+          if (i.description.length === 0) {
+            const fallbackDescription = portFolioItemsInput.openSource.items.find(
+              (j) => j.name === i.name
+            )?.description;
+            i.description = fallbackDescription!;
+          }
+          return i;
+        }),
+        intro: portFolioItemsInput.openSource.intro,
       },
       portfolioSectionSchool: {
         portfolioDataItems: portfolioDataSchool,
-        intro: portFolioItems.school.intro,
+        intro: portFolioItemsInput.school.intro,
       },
     },
   };
@@ -80,6 +89,7 @@ interface IPortFolioItemSpecification {
   name: string;
   owner: string;
   url: string;
+  description?: string;
 }
 
 export interface IPortfolioSection {
