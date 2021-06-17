@@ -1,8 +1,20 @@
 import React from 'react';
 import { IRepositoryMetadata } from '../util/git/AbstractGitService';
 import { FaStar } from 'react-icons/fa';
+import styles from '../styles/PortfolioItem.module.scss';
 
 const PortfolioItem = (props: IProps): JSX.Element => {
+  const getLangStyleClass = (): string => {
+    const listOfLangs = Object.keys(styles);
+    if (props.data.language.toLowerCase() === 'c++') {
+      return 'cpp';
+    }
+    if (!listOfLangs.includes(props.data.language.toLowerCase())) {
+      return 'default';
+    }
+    return props.data.language.toLowerCase();
+  };
+
   return (
     <div>
       <div>
@@ -16,7 +28,8 @@ const PortfolioItem = (props: IProps): JSX.Element => {
             <FaStar />
           </li>
           <li title="Main language">
-            <b>Language:</b> {props.data.language}
+            <b>Language:</b>{' '}
+            <span className={styles[getLangStyleClass()]}>{props.data.language}</span>
           </li>
           <li>
             <b>Topics:</b> {props.data.topics.reduce((acc, it) => acc + ', ' + it + '')}

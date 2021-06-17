@@ -1,6 +1,6 @@
 {
   "personal": {
-    "intro": "These are some projects either developed due to a personal use case or just for the fun of it. Some of them are used by not an inconsiderable number of other people, as I've chosen to make them free and open source.",
+    "intro": "These are some projects either developed due to a personal use case or just for the fun of it. Some of them are used and contributed to by not an inconsiderable number of other people, as I've chosen to make them free and open source.",
     "items": [
       { "name": "homepage", "owner": "LoLei", "url": "https://github.com/LoLei/homepage" },
       { "name": "razer-cli", "owner": "LoLei", "url": "https://github.com/LoLei/razer-cli" },

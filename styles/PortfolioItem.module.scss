@@ -1,0 +1,25 @@
+@use 'theme';
+
+.default {
+  color: theme.$lang-default;
+}
+
+.rust {
+  color: theme.$lang-rust;
+}
+
+.python {
+  color: theme.$lang-python;
+}
+
+.typescript {
+  color: theme.$lang-typescript;
+}
+
+.javascript {
+  color: theme.$lang-javascript;
+}
+
+.cpp {
+  color: theme.$lang-cpp;
+}
