@@ -6,8 +6,13 @@ import { IRepositoryMetadata } from '../../util/git/AbstractGitService';
 import GitDelegator from '../../util/git/GitDelegator';
 
 const PortfolioPage = (props: IProps): JSX.Element => {
-  console.log(props);
-  return <Portfolio />;
+  return (
+    <Portfolio
+      portfolioDataPersonal={props.portfolioDataPersonal}
+      portfolioDataOpenSource={props.portfolioDataOpenSource}
+      portfolioDataSchool={props.portfolioDataSchool}
+    />
+  );
 };
 
 export default PortfolioPage;
