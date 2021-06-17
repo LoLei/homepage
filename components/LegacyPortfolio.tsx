@@ -3,7 +3,6 @@ import ReactMarkdown from 'react-markdown';
 import styles from '../styles/LegacyPortfolio.module.scss';
 
 const LegacyPortfolio = (props: IProps): JSX.Element => {
-  console.log(props);
   return (
     <div className={styles.container}>
       <div className={styles.content}>

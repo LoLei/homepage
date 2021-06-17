@@ -5,7 +5,6 @@ import styles from '../styles/Portfolio.module.scss';
 import PortfolioItemsSection from './PortfolioItemsSection';
 
 const Portfolio = (props: IProps): JSX.Element => {
-  console.log(props);
   return (
     <div className={styles.container}>
       <div>
