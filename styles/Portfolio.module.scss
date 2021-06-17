@@ -1,8 +1,14 @@
 @use 'mixins';
 @use 'theme';
+@use 'variables';
 
 .container {
   height: 100%;
+
+  @media only screen and (max-width: variables.$tablet-width) {
+    margin-left: 2vw;
+    margin-right: 2vw;
+  }
 
   @include mixins.center-content;
   flex-direction: column;
