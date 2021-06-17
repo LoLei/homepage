@@ -1,25 +1,26 @@
 @use 'theme';
+@use 'mixins';
 
 .default {
-  color: theme.$lang-default;
+  @include mixins.highlight-language(theme.$lang-default);
 }
 
 .rust {
-  color: theme.$lang-rust;
+  @include mixins.highlight-language(theme.$lang-rust);
 }
 
 .python {
-  color: theme.$lang-python;
+  @include mixins.highlight-language(theme.$lang-python);
 }
 
 .typescript {
-  color: theme.$lang-typescript;
+  @include mixins.highlight-language(theme.$lang-typescript);
 }
 
 .javascript {
-  color: theme.$lang-javascript;
+  @include mixins.highlight-language(theme.$lang-javascript);
 }
 
 .cpp {
-  color: theme.$lang-cpp;
+  @include mixins.highlight-language(theme.$lang-cpp);
 }

@@ -3,6 +3,7 @@ import React from 'react';
 import { IPortfolioSection } from '../pages/portfolio';
 import styles from '../styles/Portfolio.module.scss';
 import PortfolioItemsSection from './PortfolioItemsSection';
+import { MdPerson, MdPublic, MdSchool } from 'react-icons/md';
 
 const Portfolio = (props: IProps): JSX.Element => {
   return (
@@ -12,23 +13,26 @@ const Portfolio = (props: IProps): JSX.Element => {
       </div>
 
       <h2>Selected Projects</h2>
-      <div>Some larger and more recent projects.</div>
+      <div>Some projects of notability…</div>
 
       <div className={styles.portfolioItems}>
         <PortfolioItemsSection
           className={styles.portFolioItemsPersonal}
+          icon={<MdPerson />}
           title="Personal Projects"
           intro={props.portfolioSectionPersonal.intro}
           portfolioData={props.portfolioSectionPersonal.portfolioDataItems}
         />
         <PortfolioItemsSection
           className={styles.portFolioItemsOpenSource}
+          icon={<MdPublic />}
           title="Open-Source Projects"
           intro={props.portfolioSectionOpenSource.intro}
           portfolioData={props.portfolioSectionOpenSource.portfolioDataItems}
         />
         <PortfolioItemsSection
           className={styles.portFolioItemsSchool}
+          icon={<MdSchool />}
           title="School Projects"
           intro={props.portfolioSectionSchool.intro}
           portfolioData={props.portfolioSectionSchool.portfolioDataItems}

@@ -1,5 +1,13 @@
+@use 'theme';
+
 @mixin center-content {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@mixin highlight-language($background-color) {
+  background-color: $background-color;
+  color: theme.$bg;
+  padding: 0 0.125em;
 }
