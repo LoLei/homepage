@@ -1,23 +1,32 @@
 {
-  "personal": [
-    { "name": "homepage", "owner": "LoLei", "url": "https://github.com/LoLei/homepage" },
-    { "name": "razer-cli", "owner": "LoLei", "url": "https://github.com/LoLei/razer-cli" },
-    { "name": "ircbot", "owner": "LoLei", "url": "https://github.com/LoLei/ircbot" },
-    { "name": "spmf-py", "owner": "LoLei", "url": "https://github.com/LoLei/spmf-py" },
-    { "name": "redditcleaner", "owner": "LoLei", "url": "https://github.com/LoLei/redditcleaner" }
-  ],
-  "openSource": [
-    { "name": "lmrdashboard", "owner": "r-lmr", "url": "https://github.com/r-lmr/lmrdashboard" },
-    { "name": "pastor", "owner": "cocainefarm", "url": "https://gitlab.com/cocainefarm/pastor" }
-  ],
-  "school": [
-    { "name": "YACA", "owner": "LoLei", "url": "https://github.com/LoLei/YACA" },
-    { "name": "YASM", "owner": "LoLei", "url": "https://github.com/LoLei/YASM" },
-    {
-      "name": "design-patterns-examples",
-      "owner": "LoLei",
-      "url": "https://github.com/LoLei/design-patterns-examples"
-    },
-    { "name": "kurve", "owner": "tulsd", "url": "https://github.com/tulsd/kurve" }
-  ]
+  "personal": {
+    "intro": "These are some projects either developed due to a personal use case or just for the fun of it. Some of them are used by not an inconsiderable number of other people, as I've chosen to make them free and open source.",
+    "items": [
+      { "name": "homepage", "owner": "LoLei", "url": "https://github.com/LoLei/homepage" },
+      { "name": "razer-cli", "owner": "LoLei", "url": "https://github.com/LoLei/razer-cli" },
+      { "name": "ircbot", "owner": "LoLei", "url": "https://github.com/LoLei/ircbot" },
+      { "name": "spmf-py", "owner": "LoLei", "url": "https://github.com/LoLei/spmf-py" },
+      { "name": "redditcleaner", "owner": "LoLei", "url": "https://github.com/LoLei/redditcleaner" }
+    ]
+  },
+  "openSource": {
+    "intro": "These projects are started and developed either by me with other people, or I have contributed to already existing codebases, i.e. they are more of a community-effort than pure personal ambition.",
+    "items": [
+      { "name": "lmrdashboard", "owner": "r-lmr", "url": "https://github.com/r-lmr/lmrdashboard" },
+      { "name": "pastor", "owner": "cocainefarm", "url": "https://gitlab.com/cocainefarm/pastor" }
+    ]
+  },
+  "school": {
+    "intro": "During my time at university (TU Graz), I've had the chance to create many practical programs, often within groups. Some of the more exceptional ones are listed here.",
+    "items": [
+      { "name": "YACA", "owner": "LoLei", "url": "https://github.com/LoLei/YACA" },
+      { "name": "YASM", "owner": "LoLei", "url": "https://github.com/LoLei/YASM" },
+      {
+        "name": "design-patterns-examples",
+        "owner": "LoLei",
+        "url": "https://github.com/LoLei/design-patterns-examples"
+      },
+      { "name": "kurve", "owner": "tulsd", "url": "https://github.com/tulsd/kurve" }
+    ]
+  }
 }

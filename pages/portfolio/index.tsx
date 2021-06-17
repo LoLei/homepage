@@ -8,9 +8,9 @@ import GitDelegator from '../../util/git/GitDelegator';
 const PortfolioPage = (props: IProps): JSX.Element => {
   return (
     <Portfolio
-      portfolioDataPersonal={props.portfolioDataPersonal}
-      portfolioDataOpenSource={props.portfolioDataOpenSource}
-      portfolioDataSchool={props.portfolioDataSchool}
+      portfolioSectionPersonal={props.portfolioSectionPersonal}
+      portfolioSectionOpenSource={props.portfolioSectionOpenSource}
+      portfolioSectionSchool={props.portfolioSectionSchool}
     />
   );
 };
@@ -34,15 +34,15 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   const gitService = GitDelegator.Instance;
   const personalPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGithub(
-    portFolioItems.personal,
+    portFolioItems.personal.items,
     gitService
   );
   const openSourcePromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGithub(
-    portFolioItems.openSource,
+    portFolioItems.openSource.items,
     gitService
   );
   const schoolPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGithub(
-    portFolioItems.school,
+    portFolioItems.school.items,
     gitService
   );
 
@@ -53,18 +53,36 @@ export const getServerSideProps: GetServerSideProps = async () => {
   ]);
 
   return {
-    props: { portfolioDataPersonal, portfolioDataOpenSource, portfolioDataSchool },
+    props: {
+      portfolioSectionPersonal: {
+        portfolioDataItems: portfolioDataPersonal,
+        intro: portFolioItems.personal.intro,
+      },
+      portfolioSectionOpenSource: {
+        portfolioDataItems: portfolioDataOpenSource,
+        intro: portFolioItems.openSource.intro,
+      },
+      portfolioSectionSchool: {
+        portfolioDataItems: portfolioDataSchool,
+        intro: portFolioItems.school.intro,
+      },
+    },
   };
 };
 
 interface IProps {
-  portfolioDataPersonal: IRepositoryMetadata[];
-  portfolioDataOpenSource: IRepositoryMetadata[];
-  portfolioDataSchool: IRepositoryMetadata[];
+  portfolioSectionPersonal: IPortfolioSection;
+  portfolioSectionOpenSource: IPortfolioSection;
+  portfolioSectionSchool: IPortfolioSection;
 }
 
 interface IPortFolioItemSpecification {
   name: string;
   owner: string;
   url: string;
+}
+
+export interface IPortfolioSection {
+  portfolioDataItems: IRepositoryMetadata[];
+  intro: string;
 }

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
+import { IPortfolioSection } from '../pages/portfolio';
 import styles from '../styles/Portfolio.module.scss';
-import { IRepositoryMetadata } from '../util/git/AbstractGitService';
 import PortfolioItemsSection from './PortfolioItemsSection';
 
 const Portfolio = (props: IProps): JSX.Element => {
@@ -19,20 +19,20 @@ const Portfolio = (props: IProps): JSX.Element => {
         <PortfolioItemsSection
           className={styles.portFolioItemsPersonal}
           title="Personal Projects"
-          intro="These are some projects either developed due to a personal use case or just for the fun of it. Some of them are used by not an inconsiderable number of other people, as I've chosen to make them free and open source."
-          portfolioData={props.portfolioDataPersonal}
+          intro={props.portfolioSectionPersonal.intro}
+          portfolioData={props.portfolioSectionPersonal.portfolioDataItems}
         />
         <PortfolioItemsSection
           className={styles.portFolioItemsOpenSource}
           title="Open-Source Projects"
-          intro="These projects are started and developed either by me with other people, or I have contributed to already existing codebases, i.e. they are more of a community-effort than pure personal ambition."
-          portfolioData={props.portfolioDataOpenSource}
+          intro={props.portfolioSectionOpenSource.intro}
+          portfolioData={props.portfolioSectionOpenSource.portfolioDataItems}
         />
         <PortfolioItemsSection
           className={styles.portFolioItemsSchool}
           title="School Projects"
-          intro="During my time at university (TU Graz), I've had the chance to create many practical programs. Some of the more individual ones are listed here."
-          portfolioData={props.portfolioDataSchool}
+          intro={props.portfolioSectionSchool.intro}
+          portfolioData={props.portfolioSectionSchool.portfolioDataItems}
         />
       </div>
 
@@ -51,7 +51,7 @@ const Portfolio = (props: IProps): JSX.Element => {
 export default Portfolio;
 
 interface IProps {
-  portfolioDataPersonal: IRepositoryMetadata[];
-  portfolioDataOpenSource: IRepositoryMetadata[];
-  portfolioDataSchool: IRepositoryMetadata[];
+  portfolioSectionPersonal: IPortfolioSection;
+  portfolioSectionOpenSource: IPortfolioSection;
+  portfolioSectionSchool: IPortfolioSection;
 }
