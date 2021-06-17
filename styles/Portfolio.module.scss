@@ -6,4 +6,12 @@
 
   @include mixins.center-content;
   flex-direction: column;
+
+  .portFolioItemsPersonal,
+  .portFolioItemsOpenSource,
+  .portFolioItemsSchool {
+    ul {
+      margin-top: -1em;
+    }
+  }
 }
