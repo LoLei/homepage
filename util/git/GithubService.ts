@@ -26,7 +26,15 @@ class GithubService extends AbstractGitService {
       return undefined;
     }
     const { name, stargazers_count, language, topics, description } = await res.json();
-    return { name, stargazersCount: stargazers_count, language, topics, description, url, stargazersUrl: `${url}/stargazers` };
+    return {
+      name,
+      stargazersCount: stargazers_count,
+      language,
+      topics,
+      description,
+      url,
+      stargazersUrl: `${url}/stargazers`,
+    };
   }
 
   public async getRepositoryContentList(url: string): Promise<IRepositoryContentEntryMetadata[]> {

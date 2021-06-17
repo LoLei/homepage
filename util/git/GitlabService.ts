@@ -20,7 +20,15 @@ class GitlabService extends AbstractGitService {
       return undefined;
     }
     const { name, star_count, topics, description } = await res.json();
-    return { name, stargazersCount: star_count, language: '', topics, description, url: "", stargazersUrl: "" };
+    return {
+      name,
+      stargazersCount: star_count,
+      language: '',
+      topics,
+      description,
+      url: '',
+      stargazersUrl: '',
+    };
   }
 
   public async getRepositoryLanguages(owner: string, repoName: string): Promise<string[]> {
@@ -53,7 +61,7 @@ class GitlabService extends AbstractGitService {
 
     repoDataMain.language = repoDataLanguages[0];
     repoDataMain.url = url;
-    repoDataMain.stargazersUrl = `${url}/-/starrers`
+    repoDataMain.stargazersUrl = `${url}/-/starrers`;
     return repoDataMain;
   }
 
