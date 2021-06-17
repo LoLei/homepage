@@ -5,10 +5,7 @@
 .container {
   height: 100%;
 
-  @media only screen and (max-width: variables.$tablet-width) {
-    margin-left: 2vw;
-    margin-right: 2vw;
-  }
+  @include mixins.mobile-margins;
 
   @include mixins.center-content;
   flex-direction: column;
