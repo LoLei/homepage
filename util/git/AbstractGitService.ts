@@ -16,6 +16,8 @@ export interface IRepositoryMetadata {
   language: string;
   topics: string[];
   description: string;
+  url: string;
+  stargazersUrl: string;
 }
 
 export interface IRepositoryContentEntryMetadata {
