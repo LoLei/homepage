@@ -18,7 +18,7 @@ const PortfolioPage = (props: IProps): JSX.Element => {
 export default PortfolioPage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const getPortFolioItemsViaGithub = async (
+  const getPortFolioItemsViaGit = async (
     specs: IPortFolioItemSpecification[],
     gitService: GitDelegator
   ) => {
@@ -26,22 +26,23 @@ export const getServerSideProps: GetServerSideProps = async () => {
       return gitService.getRepository(pfi.url);
     });
 
-    const rps: IRepositoryMetadata[] = (await Promise.all(ps)).filter(
-      (it) => it
-    ) as IRepositoryMetadata[];
+    const rps: IRepositoryMetadata[] = (await Promise.allSettled(ps))
+      .filter(({ status }) => status === 'fulfilled')
+      .filter((it) => (it as PromiseFulfilledResult<IRepositoryMetadata | undefined>).value != null)
+      .map((it) => (it as PromiseFulfilledResult<IRepositoryMetadata>).value);
     return rps;
   };
 
   const gitService = GitDelegator.Instance;
-  const personalPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGithub(
+  const personalPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGit(
     portFolioItemsInput.personal.items,
     gitService
   );
-  const openSourcePromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGithub(
+  const openSourcePromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGit(
     portFolioItemsInput.openSource.items,
     gitService
   );
-  const schoolPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGithub(
+  const schoolPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGit(
     portFolioItemsInput.school.items,
     gitService
   );
