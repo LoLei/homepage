@@ -1,4 +1,5 @@
 import AbstractGitService, {
+  GitServiceType,
   IRateLimit,
   IRepositoryContentEntry,
   IRepositoryContentEntryMetadata,
@@ -39,7 +40,7 @@ class GitlabService extends AbstractGitService {
   }
 
   public async getRepository(url: string): Promise<IRepositoryMetadata | undefined> {
-    const urlParts = UrlParser.parseGitUrlParts(url, 'gitlab');
+    const urlParts = UrlParser.parseGitUrlParts(url, GitServiceType.GITLAB);
     if (!urlParts.valid) {
       return undefined;
     }

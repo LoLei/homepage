@@ -1,3 +1,4 @@
+import { GitServiceType } from '../AbstractGitService';
 import UrlParser from '../UrlParser';
 
 describe('getGitServiceType', () => {
@@ -19,7 +20,10 @@ describe('getGitServiceType', () => {
 
 describe('parseGitUrlParts', () => {
   test('returns valid and correct owner and repo name for a valid github url', () => {
-    const result = UrlParser.parseGitUrlParts('https://github.com/LoLei/posts', 'github');
+    const result = UrlParser.parseGitUrlParts(
+      'https://github.com/LoLei/posts',
+      GitServiceType.GITHUB
+    );
     expect(result).toStrictEqual({
       valid: true,
       owner: 'LoLei',
@@ -29,7 +33,10 @@ describe('parseGitUrlParts', () => {
   });
 
   test('returns valid and correct owner and repo name for a valid gitlab url', () => {
-    const result = UrlParser.parseGitUrlParts('https://gitlab.com/cocainefarm/pastor', 'gitlab');
+    const result = UrlParser.parseGitUrlParts(
+      'https://gitlab.com/cocainefarm/pastor',
+      GitServiceType.GITLAB
+    );
     expect(result).toStrictEqual({
       valid: true,
       owner: 'cocainefarm',
@@ -41,7 +48,7 @@ describe('parseGitUrlParts', () => {
   test('returns valid and correct owner, repo name and filename for a valid url', () => {
     const result = UrlParser.parseGitUrlParts(
       'https://github.com/LoLei/posts/2000-01-01-my-post.md',
-      'github'
+      GitServiceType.GITHUB
     );
     expect(result).toStrictEqual({
       valid: true,
@@ -54,7 +61,7 @@ describe('parseGitUrlParts', () => {
   test('returns invalid for an invalid url', () => {
     const result = UrlParser.parseGitUrlParts(
       'https://github.comLoLeiposts/2000-01-01-my-post.md',
-      'github'
+      GitServiceType.GITHUB
     );
     expect(result).toStrictEqual({ valid: false });
   });

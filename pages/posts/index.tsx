@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const gitService = GitDelegator.Instance;
   const posts = await gitService.getRepositoryContentList('https://github.com/LoLei/posts');
 
-  if (posts.length === 0) {
+  if (posts == null || posts.length === 0) {
     return {
       notFound: true,
     };

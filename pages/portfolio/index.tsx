@@ -53,6 +53,18 @@ export const getServerSideProps: GetServerSideProps = async () => {
     schoolPromise,
   ]);
 
+  // If all are undefined, return 404
+  if (
+    portfolioDataPersonal == null &&
+    portfolioDataOpenSource == null &&
+    portfolioDataSchool == null
+  ) {
+    return {
+      notFound: true,
+    };
+  }
+
+  // If all lists are empty, return 404
   if (
     [portfolioDataPersonal, portfolioDataOpenSource, portfolioDataSchool].reduce(
       (acc, it) => it.length === 0 && acc,
@@ -60,7 +72,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     )
   ) {
     return {
-      // If all lists are empty, return 404
       notFound: true,
     };
   }

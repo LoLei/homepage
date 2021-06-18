@@ -1,4 +1,5 @@
 import AbstractGitService, {
+  GitServiceType,
   IRateLimit,
   IRepositoryContentEntry,
   IRepositoryContentEntryMetadata,
@@ -12,7 +13,7 @@ class GithubService extends AbstractGitService {
   }
 
   public async getRepository(url: string): Promise<IRepositoryMetadata | undefined> {
-    const urlParts = UrlParser.parseGitUrlParts(url, 'github');
+    const urlParts = UrlParser.parseGitUrlParts(url, GitServiceType.GITHUB);
     if (!urlParts.valid) {
       return undefined;
     }
@@ -39,7 +40,7 @@ class GithubService extends AbstractGitService {
   }
 
   public async getRepositoryContentList(url: string): Promise<IRepositoryContentEntryMetadata[]> {
-    const urlParts = UrlParser.parseGitUrlParts(url, 'github');
+    const urlParts = UrlParser.parseGitUrlParts(url, GitServiceType.GITHUB);
     if (!urlParts.valid) {
       return [];
     }
@@ -65,7 +66,7 @@ class GithubService extends AbstractGitService {
   }
 
   public async getRepositoryFileContent(url: string): Promise<IRepositoryContentEntry | undefined> {
-    const urlParts = UrlParser.parseGitUrlParts(url, 'github');
+    const urlParts = UrlParser.parseGitUrlParts(url, GitServiceType.GITHUB);
     if (!urlParts.valid) {
       return undefined;
     }

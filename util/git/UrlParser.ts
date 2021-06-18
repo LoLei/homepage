@@ -1,15 +1,21 @@
+import { GitServiceType } from './AbstractGitService';
+
 class UrlParser {
-  public static getGitServiceType(url: string): string | undefined {
+  public static getGitServiceType(url: string): GitServiceType | undefined {
     const match = /https:\/\/(?<serviceName>github|gitlab).com.*/.exec(url);
     if (match == null) {
       return undefined;
     }
-    return match.groups?.serviceName;
+    const name = match.groups?.serviceName;
+    if (name == null) {
+      return undefined;
+    }
+    return name === 'github' ? GitServiceType.GITHUB : GitServiceType.GITLAB;
   }
 
-  public static parseGitUrlParts(url: string, repoType: 'github' | 'gitlab'): IUrlParseResult {
+  public static parseGitUrlParts(url: string, repoType: GitServiceType): IUrlParseResult {
     const regex =
-      repoType === 'github'
+      repoType === GitServiceType.GITHUB
         ? /https:\/\/github.com\/(?<owner>[\w-_]+)\/(?<repoName>[\w-_]+)\/?(?<fileName>[\w-_.]+)?/
         : /https:\/\/gitlab.com\/(?<owner>[\w-_]+)\/(?<repoName>[\w-_]+)\/?(?<fileName>[\w-_.]+)?/;
     const match = regex.exec(url);

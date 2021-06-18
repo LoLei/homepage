@@ -8,6 +8,12 @@ abstract class AbstractGitService {
   abstract getRepository(url: string): Promise<IRepositoryMetadata | undefined>;
   abstract getRepositoryContentList(url: string): Promise<IRepositoryContentEntryMetadata[]>;
   abstract getRepositoryFileContent(url: string): Promise<IRepositoryContentEntry | undefined>;
+  abstract checkRateLimit(type?: GitServiceType): Promise<IRateLimit>;
+}
+
+export enum GitServiceType {
+  GITHUB = 'github',
+  GITLAB = 'gitlab',
 }
 
 export interface IRepositoryMetadata {

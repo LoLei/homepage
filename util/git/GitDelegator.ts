@@ -1,4 +1,6 @@
 import AbstractGitService, {
+  GitServiceType,
+  IRateLimit,
   IRepositoryContentEntry,
   IRepositoryContentEntryMetadata,
   IRepositoryMetadata,
@@ -25,32 +27,35 @@ class GitDelegator extends AbstractGitService {
     return (
       this._instance ||
       (this._instance = new this(
-        new Map<string, AbstractGitService>([
-          ['github', new GithubService()],
-          ['gitlab', new GitlabService()],
+        new Map<GitServiceType, AbstractGitService>([
+          [GitServiceType.GITHUB, new GithubService()],
+          [GitServiceType.GITLAB, new GitlabService()],
         ])
       ))
     );
   }
 
-  public getServiceOfType(type: 'github' | 'gitlab'): GithubService | GitlabService {
-    return this.services.get(type) as GithubService | GitlabService;
+  public getServiceOfType(type: GitServiceType): AbstractGitService {
+    return this.services.get(type)!;
   }
 
-  private callMethodWithAppropriateService(
+  private async callMethodWithAppropriateService(
     methodName: 'getRepository' | 'getRepositoryContentList' | 'getRepositoryFileContent',
     url: string
-  ):
-    | Promise<IRepositoryMetadata | undefined>
-    | Promise<IRepositoryContentEntryMetadata[]>
-    | Promise<IRepositoryContentEntry | undefined> {
+  ): Promise<
+    IRepositoryMetadata | IRepositoryContentEntryMetadata[] | IRepositoryContentEntry | undefined
+  > {
     const serviceName = UrlParser.getGitServiceType(url);
-    if (this.services.has(serviceName || '')) {
-      return this.services.get(serviceName!)![methodName](url);
+    const service = this.services.get(serviceName!);
+
+    if (service != null) {
+      if ((await service.checkRateLimit()).remaining > 0) {
+        return service[methodName](url);
+      }
+      console.warn(`Git service ${serviceName} has reached the rate limit.`);
+      return;
     }
-    console.error(`Unsupported git URL: ${url}`);
-    console.warn('Attempting Github service as fallback');
-    return this.services.get('github')![methodName](url);
+    console.error(`Service not supported: ${url}`);
   }
 
   public getRepository(url: string): Promise<IRepositoryMetadata | undefined> {
@@ -69,6 +74,10 @@ class GitDelegator extends AbstractGitService {
     return this.callMethodWithAppropriateService('getRepositoryFileContent', url) as Promise<
       IRepositoryContentEntry | undefined
     >;
+  }
+
+  public async checkRateLimit(type: GitServiceType): Promise<IRateLimit> {
+    return await this.services.get(type)!.checkRateLimit();
   }
 }
 
