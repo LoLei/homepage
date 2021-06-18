@@ -93,6 +93,11 @@ class GithubService extends AbstractGitService {
         Accept: 'application/vnd.github.v3+json',
       }),
     });
+    if (!res.ok) {
+      const msg = 'Error during Github rate check';
+      console.error(msg);
+      throw new Error(msg);
+    }
     const rate: IRateLimit = (await res.json()).rate;
     return rate;
   }

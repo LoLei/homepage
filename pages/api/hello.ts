@@ -6,7 +6,8 @@ import GithubService from '../../util/git/GithubService';
 import GitlabService from '../../util/git/GitlabService';
 
 type Data = {
-  name: string;
+  githubRate: IRateLimit | string;
+  gitlabRate: IRateLimit | string;
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<void> => {
@@ -20,5 +21,5 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<
     .map((it) => (it as PromiseFulfilledResult<IRateLimit>).value);
   console.log({ githubRate });
   console.log({ gitlabRate });
-  res.status(200).json({ name: 'John Doe' });
+  res.status(200).json({ githubRate: githubRate || 'error', gitlabRate: gitlabRate || 'error' });
 };

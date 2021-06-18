@@ -1,5 +1,5 @@
 import AbstractGitService, {
-    IRateLimit,
+  IRateLimit,
   IRepositoryContentEntry,
   IRepositoryContentEntryMetadata,
   IRepositoryMetadata,
@@ -78,9 +78,10 @@ class GitlabService extends AbstractGitService {
 
   public async checkRateLimit(): Promise<IRateLimit> {
     const res = await fetch(`${this.baseApiUrl}/rate_limit`);
-    console.log({res});
     if (!res.ok) {
-      throw new Error('asdf');
+      const msg = 'Error during Gitlab rate check';
+      console.error(msg);
+      throw new Error(msg);
     }
     const rate: IRateLimit = (await res.json()).rate;
     return rate;
