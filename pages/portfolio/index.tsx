@@ -53,6 +53,18 @@ export const getServerSideProps: GetServerSideProps = async () => {
     schoolPromise,
   ]);
 
+  if (
+    [portfolioDataPersonal, portfolioDataOpenSource, portfolioDataSchool].reduce(
+      (acc, it) => it.length === 0 && acc,
+      true
+    )
+  ) {
+    return {
+      // If all lists are empty, return 404
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       portfolioSectionPersonal: {

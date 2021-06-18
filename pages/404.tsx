@@ -8,16 +8,29 @@ const NotFound = (): JSX.Element => {
 
   return (
     <div className={styles.container}>
-      <h1>404 - Page Not Found</h1>
+      <h1>404 - Content Not Found</h1>
+
       <div>
-        <div>
-          <span onClick={() => router.back()}>
-            <a>Back</a>
-          </span>
-        </div>
+        <span onClick={() => router.back()}>
+          <a>Back</a>
+        </span>
+      </div>
+      <div>
         <Link href="/">
           <a>Home</a>
         </Link>
+      </div>
+
+      <h4>All content is also available here:</h4>
+      <div>
+        <a href="https://github.com/LoLei/posts" target="_blank" rel="noreferrer">
+          Posts
+        </a>
+      </div>
+      <div>
+        <a href="https://github.com/LoLei/portfolio" target="_blank" rel="noreferrer">
+          Portfolio
+        </a>
       </div>
     </div>
   );
