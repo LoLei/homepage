@@ -8,14 +8,14 @@ import UrlParser from './UrlParser';
 
 class GitlabService extends AbstractGitService {
   public constructor() {
-    super('https://gitlab.com/api/v4/projects');
+    super('https://gitlab.com/api/v4');
   }
 
   private async getRepositoryMetadata(
     owner: string,
     repoName: string
   ): Promise<IRepositoryMetadata | undefined> {
-    const res = await fetch(`${this.baseApiUrl}/${owner}%2F${repoName}`);
+    const res = await fetch(`${this.baseApiUrl}/projects/${owner}%2F${repoName}`);
     if (!res.ok) {
       console.error(res.status, res.statusText);
       return undefined;
@@ -33,7 +33,7 @@ class GitlabService extends AbstractGitService {
   }
 
   private async getRepositoryLanguages(owner: string, repoName: string): Promise<string[]> {
-    const langRes = await fetch(`${this.baseApiUrl}/${owner}%2F${repoName}/languages`);
+    const langRes = await fetch(`${this.baseApiUrl}/projects/${owner}%2F${repoName}/languages`);
     const languages = await langRes.json();
     return Object.keys(languages);
   }
@@ -77,14 +77,20 @@ class GitlabService extends AbstractGitService {
   }
 
   public async checkRateLimit(): Promise<IRateLimit> {
-    const res = await fetch(`${this.baseApiUrl}/rate_limit`);
+    const res = await fetch(`${this.baseApiUrl}/users?username=Lolei`);
     if (!res.ok) {
       const msg = 'Error during Gitlab rate check';
       console.error(msg);
       throw new Error(msg);
     }
-    const rate: IRateLimit = (await res.json()).rate;
-    return rate;
+
+    const headers = res.headers;
+    return {
+      limit: parseInt(headers.get('ratelimit-limit') || '0'),
+      used: parseInt(headers.get('ratelimit-observed') || '0'),
+      remaining: parseInt(headers.get('ratelimit-remaining') || '0'),
+      reset: parseInt(headers.get('ratelimit-reset') || '0'),
+    };
   }
 }
 
