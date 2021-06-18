@@ -16,10 +16,13 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<
   const gitlabService = gitDelegator.getServiceOfType('gitlab') as GitlabService;
   const githubPromise = githubService.checkRateLimit();
   const gitlabPromise = gitlabService.checkRateLimit();
-  const [githubRate, gitlabRate] = (await Promise.allSettled([githubPromise, gitlabPromise]))
-    .filter(({ status }) => status === 'fulfilled')
-    .map((it) => (it as PromiseFulfilledResult<IRateLimit>).value);
-  console.log({ githubRate });
-  console.log({ gitlabRate });
-  res.status(200).json({ githubRate: githubRate || 'error', gitlabRate: gitlabRate || 'error' });
+  const [githubRate, gitlabRate] = (await Promise.allSettled([githubPromise, gitlabPromise])).map(
+    (it) => {
+      if (it.status === 'fulfilled') {
+        return (it as PromiseFulfilledResult<IRateLimit>).value;
+      }
+      return (it as PromiseRejectedResult).reason.toString();
+    }
+  );
+  res.status(200).json({ githubRate: githubRate, gitlabRate: gitlabRate });
 };
