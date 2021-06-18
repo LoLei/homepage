@@ -10,7 +10,7 @@ type Data = {
   gitlabRate: IRateLimit | string;
 };
 
-export default async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<void> => {
+const checkRateLimitOfServices = async (): Promise<Data> => {
   const gitDelegator = GitDelegator.Instance;
   const githubService = gitDelegator.getServiceOfType('github') as GithubService;
   const gitlabService = gitDelegator.getServiceOfType('gitlab') as GitlabService;
@@ -23,6 +23,11 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<
       }
       return (it as PromiseRejectedResult).reason.toString();
     }
-  );
-  res.status(200).json({ githubRate: githubRate, gitlabRate: gitlabRate });
+  ) as (IRateLimit | string)[];
+
+  return { githubRate, gitlabRate };
+};
+
+export default async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<void> => {
+  res.status(200).json(await checkRateLimitOfServices());
 };
