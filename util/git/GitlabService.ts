@@ -1,4 +1,5 @@
 import AbstractGitService, {
+    IRateLimit,
   IRepositoryContentEntry,
   IRepositoryContentEntryMetadata,
   IRepositoryMetadata,
@@ -10,7 +11,7 @@ class GitlabService extends AbstractGitService {
     super('https://gitlab.com/api/v4/projects');
   }
 
-  public async getRepositoryMetadata(
+  private async getRepositoryMetadata(
     owner: string,
     repoName: string
   ): Promise<IRepositoryMetadata | undefined> {
@@ -31,7 +32,7 @@ class GitlabService extends AbstractGitService {
     };
   }
 
-  public async getRepositoryLanguages(owner: string, repoName: string): Promise<string[]> {
+  private async getRepositoryLanguages(owner: string, repoName: string): Promise<string[]> {
     const langRes = await fetch(`${this.baseApiUrl}/${owner}%2F${repoName}/languages`);
     const languages = await langRes.json();
     return Object.keys(languages);
@@ -73,6 +74,16 @@ class GitlabService extends AbstractGitService {
   public async getRepositoryFileContent(url: string): Promise<IRepositoryContentEntry | undefined> {
     console.error(`${this.constructor.name} getRepositoryFileContent function not yet implemented`);
     return undefined;
+  }
+
+  public async checkRateLimit(): Promise<IRateLimit> {
+    const res = await fetch(`${this.baseApiUrl}/rate_limit`);
+    console.log({res});
+    if (!res.ok) {
+      throw new Error('asdf');
+    }
+    const rate: IRateLimit = (await res.json()).rate;
+    return rate;
   }
 }
 

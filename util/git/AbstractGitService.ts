@@ -32,4 +32,11 @@ export interface IRepositoryContentEntry {
   content: string;
 }
 
+export interface IRateLimit {
+  limit: number;
+  used: number;
+  remaining: number;
+  reset: number;
+}
+
 export default AbstractGitService;

@@ -1,4 +1,5 @@
 import AbstractGitService, {
+  IRateLimit,
   IRepositoryContentEntry,
   IRepositoryContentEntryMetadata,
   IRepositoryMetadata,
@@ -7,7 +8,7 @@ import UrlParser from './UrlParser';
 
 class GithubService extends AbstractGitService {
   public constructor() {
-    super('https://api.github.com/repos');
+    super('https://api.github.com');
   }
 
   public async getRepository(url: string): Promise<IRepositoryMetadata | undefined> {
@@ -15,7 +16,7 @@ class GithubService extends AbstractGitService {
     if (!urlParts.valid) {
       return undefined;
     }
-    const res = await fetch(`${this.baseApiUrl}/${urlParts.owner}/${urlParts.repoName}`, {
+    const res = await fetch(`${this.baseApiUrl}/repos/${urlParts.owner}/${urlParts.repoName}`, {
       headers: new Headers({
         Authorization: `token ${process.env.GITHUB_TOKEN}`,
         Accept: 'application/vnd.github.mercy-preview+json', // mercy-preview needed for topics
@@ -42,12 +43,15 @@ class GithubService extends AbstractGitService {
     if (!urlParts.valid) {
       return [];
     }
-    const res = await fetch(`${this.baseApiUrl}/${urlParts.owner}/${urlParts.repoName}/contents`, {
-      headers: new Headers({
-        Authorization: `token ${process.env.GITHUB_TOKEN}`,
-        Accept: 'application/vnd.github.v3+json',
-      }),
-    });
+    const res = await fetch(
+      `${this.baseApiUrl}/repos/${urlParts.owner}/${urlParts.repoName}/contents`,
+      {
+        headers: new Headers({
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          Accept: 'application/vnd.github.v3+json',
+        }),
+      }
+    );
     if (!res.ok) {
       console.error(res.status, res.statusText);
       return [];
@@ -66,7 +70,7 @@ class GithubService extends AbstractGitService {
       return undefined;
     }
     const res = await fetch(
-      `${this.baseApiUrl}/${urlParts.owner}/${urlParts.repoName}/contents/${urlParts.fileName}`,
+      `${this.baseApiUrl}/repos/${urlParts.owner}/${urlParts.repoName}/contents/${urlParts.fileName}`,
       {
         headers: new Headers({
           Authorization: `token ${process.env.GITHUB_TOKEN}`,
@@ -80,6 +84,17 @@ class GithubService extends AbstractGitService {
     }
     const data: string = await res.text();
     return { id: urlParts.fileName!, fileName: urlParts.fileName!, content: data };
+  }
+
+  public async checkRateLimit(): Promise<IRateLimit> {
+    const res = await fetch(`${this.baseApiUrl}/rate_limit`, {
+      headers: new Headers({
+        Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        Accept: 'application/vnd.github.v3+json',
+      }),
+    });
+    const rate: IRateLimit = (await res.json()).rate;
+    return rate;
   }
 }
 

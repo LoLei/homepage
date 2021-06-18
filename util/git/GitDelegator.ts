@@ -33,6 +33,10 @@ class GitDelegator extends AbstractGitService {
     );
   }
 
+  public getServiceOfType(type: 'github' | 'gitlab'): GithubService | GitlabService {
+    return this.services.get(type) as (GithubService | GitlabService);
+  }
+
   private callMethodWithAppropriateService(
     methodName: 'getRepository' | 'getRepositoryContentList' | 'getRepositoryFileContent',
     url: string
