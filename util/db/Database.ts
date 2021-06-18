@@ -25,10 +25,10 @@ class Database {
       this.datastorePostList.lastUpdatedDate,
       new Date()
     );
-    console.log(`Posts list needs repopulate in ${age}h`);
     if ((await this.getPostList()).length === 0 || age >= 1) {
       return true;
     }
+    console.log(`Posts list needs repopulate in ${age}h`);
     return false;
   }
 
