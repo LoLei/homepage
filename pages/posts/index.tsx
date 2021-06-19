@@ -17,11 +17,11 @@ interface IProps {
 export const getServerSideProps: GetServerSideProps = async () => {
   const database = Database.Instance;
 
-  if (await database.datastorePostListNeedsRepopulate()) {
-    await database.populatePostList();
+  if (await database.datastorePostList.needsRepopulate()) {
+    await database.datastorePostList.populate();
   }
 
-  const posts = await database.getPostList();
+  const posts = await database.datastorePostList.getAll();
 
   if (posts == null || posts.length === 0) {
     return {
