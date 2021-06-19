@@ -29,7 +29,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     };
   }
 
-  // TODO: Sort
   return {
     props: {
       postListings: posts.sort((a, b) => {
