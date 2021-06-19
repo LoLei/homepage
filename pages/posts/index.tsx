@@ -31,6 +31,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   // TODO: Sort
   return {
-    props: { postListings: posts },
+    props: {
+      postListings: posts.sort((a, b) => {
+        return a.name > b.name ? -1 : 1;
+      }),
+    },
   };
 };
