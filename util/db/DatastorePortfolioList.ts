@@ -27,6 +27,7 @@ class DatastorePortfolioList extends AbstractDatastore<IPortfolioSections> {
 
   public async populate(): Promise<IPortfolioSections> {
     console.log('Populating portfolio list…');
+
     // Empty datastore before
     await this.datastore.asyncRemove({}, { multi: true });
 

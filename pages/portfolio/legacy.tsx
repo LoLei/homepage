@@ -1,31 +1,34 @@
 import { GetServerSideProps } from 'next';
 import React from 'react';
 import LegacyPortfolio from '../../components/LegacyPortfolio';
-import GitDelegator from '../../util/git/GitDelegator';
+import Database from '../../util/db/Database';
 
-const LegacyPortfolioPage = (props: IProps): JSX.Element => {
+const LegacyPortfolioPage = (props: ILegacyPortolfio): JSX.Element => {
   return <LegacyPortfolio portfolioReadme={props.portfolioReadme} />;
 };
 
 export default LegacyPortfolioPage;
 
-interface IProps {
+export interface ILegacyPortolfio {
   portfolioReadme: string;
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const gitService = GitDelegator.Instance;
-  const portfolioReadme = (
-    await gitService.getRepositoryFileContent('https://github.com/LoLei/portfolio/README.md')
-  )?.content;
+  const database = Database.Instance;
 
-  if (portfolioReadme == null) {
+  if (await database.datastoreLegacyPortfolio.needsRepopulate()) {
+    await database.datastoreLegacyPortfolio.populate();
+  }
+
+  const legacyPortfolio = await database.datastoreLegacyPortfolio.getAll();
+
+  if (legacyPortfolio == null) {
     return {
       notFound: true,
     };
   }
 
   return {
-    props: { portfolioReadme },
+    props: legacyPortfolio,
   };
 };

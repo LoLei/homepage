@@ -1,3 +1,4 @@
+// TODO: This could be an interface
 abstract class AbstractDatastore<T> {
   public abstract needsRepopulate(): Promise<boolean>;
   public abstract populate(): Promise<T[] | T>;
