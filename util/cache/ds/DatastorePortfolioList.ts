@@ -78,11 +78,11 @@ class DatastorePortfolioList extends AbstractDatastore<IPortfolioSections> {
       return this.getAll();
     }
 
-    // If any is empty TODO: Invert condition from all to any
+    // If any is empty
     if (
       [portfolioDataPersonal, portfolioDataOpenSource, portfolioDataSchool].reduce(
-        (acc, it) => it.length === 0 && acc,
-        true
+        (acc, it) => it.length === 0 || acc,
+        false
       )
     ) {
       console.warn('Git API call failed, skipping db repopulation, returning old results');
