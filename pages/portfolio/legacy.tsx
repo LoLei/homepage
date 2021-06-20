@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import React from 'react';
 import LegacyPortfolio from '../../components/LegacyPortfolio';
-import Database from '../../util/db/Database';
+import Cache from '../../util/cache/Cache';
 
 const LegacyPortfolioPage = (props: ILegacyPortolfio): JSX.Element => {
   return <LegacyPortfolio portfolioReadme={props.portfolioReadme} />;
@@ -14,7 +14,7 @@ export interface ILegacyPortolfio {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const database = Database.Instance;
+  const database = Cache.Instance;
 
   if (await database.datastoreLegacyPortfolio.needsRepopulate()) {
     await database.datastoreLegacyPortfolio.populate();

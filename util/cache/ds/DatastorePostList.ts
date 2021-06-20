@@ -1,18 +1,18 @@
-import AsyncNedb from 'nedb-async';
-import TimeDelta from '../date/delta';
-import { IRepositoryContentEntryMetadata } from '../git/AbstractGitService';
-import GitDelegator from '../git/GitDelegator';
+import TimeDelta from '../../date/delta';
+import { IRepositoryContentEntryMetadata } from '../../git/AbstractGitService';
+import GitDelegator from '../../git/GitDelegator';
+import createDatabase, { DatabaseType } from '../db/DatabaseFactory';
+import IDatabase from '../db/IDatabase';
 import AbstractDatastore from './AbstractDatastore';
 
 class DatastorePostList extends AbstractDatastore<IRepositoryContentEntryMetadata> {
   private lastUpdatedDate: Date;
-  private datastore: AsyncNedb<IRepositoryContentEntryMetadata>;
+  protected db: IDatabase<IRepositoryContentEntryMetadata>;
 
   public constructor() {
     super();
     this.lastUpdatedDate = new Date();
-    // TODO: Hide 3rd party lib behind interface
-    this.datastore = new AsyncNedb<IRepositoryContentEntryMetadata>();
+    this.db = createDatabase<IRepositoryContentEntryMetadata>(DatabaseType.IN_MEMORY_NE);
   }
 
   public async needsRepopulate(): Promise<boolean> {
@@ -27,8 +27,8 @@ class DatastorePostList extends AbstractDatastore<IRepositoryContentEntryMetadat
   public async populate(): Promise<IRepositoryContentEntryMetadata[]> {
     console.log('Populating post list…');
 
-    // Empty datastore before
-    await this.datastore.asyncRemove({}, { multi: true });
+    // Empty db before
+    await this.db.remove({}, { multi: true });
 
     // Populate from Github
     const gitService = GitDelegator.Instance;
@@ -40,13 +40,13 @@ class DatastorePostList extends AbstractDatastore<IRepositoryContentEntryMetadat
       return this.getAll();
     }
 
-    const insertPromises = posts.map((p) => this.datastore.asyncInsert(p));
+    const insertPromises = posts.map((p) => this.db.insert(p));
     this.lastUpdatedDate = new Date();
     return Promise.all(insertPromises);
   }
 
   public getAll(): Promise<IRepositoryContentEntryMetadata[]> {
-    return this.datastore.asyncFind({});
+    return this.db.find({});
   }
 }
 

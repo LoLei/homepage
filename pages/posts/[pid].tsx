@@ -2,7 +2,7 @@ import React from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Post from '../../components/Post';
 import { IRepositoryContentEntry } from '../../util/git/AbstractGitService';
-import Database from '../../util/db/Database';
+import Cache from '../../util/cache/Cache';
 
 const PostPage = (props: IProps): JSX.Element => {
   return <Post postData={props.postData} />;
@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (
   // pid = post name
   const { pid } = context.query;
 
-  const database = Database.Instance;
+  const database = Cache.Instance;
 
   if (await database.datastorePosts.needsRepopulate(pid as string)) {
     await database.datastorePosts.populate(pid as string);

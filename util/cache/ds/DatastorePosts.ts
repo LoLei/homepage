@@ -1,17 +1,18 @@
-import AsyncNedb from 'nedb-async';
-import TimeDelta from '../date/delta';
-import { IRepositoryContentEntry } from '../git/AbstractGitService';
-import GitDelegator from '../git/GitDelegator';
+import TimeDelta from '../../date/delta';
+import { IRepositoryContentEntry } from '../../git/AbstractGitService';
+import GitDelegator from '../../git/GitDelegator';
+import createDatabase, { DatabaseType } from '../db/DatabaseFactory';
+import IDatabase from '../db/IDatabase';
 import AbstractDatastore from './AbstractDatastore';
 
 class DatastorePosts extends AbstractDatastore<IRepositoryContentEntry> {
   private lastUpdatedDate: Map<string, Date>;
-  private datastore: AsyncNedb<IRepositoryContentEntry>;
+  protected db: IDatabase<IRepositoryContentEntry>;
 
   public constructor() {
     super();
     this.lastUpdatedDate = new Map<string, Date>();
-    this.datastore = new AsyncNedb<IRepositoryContentEntry>();
+    this.db = createDatabase<IRepositoryContentEntry>(DatabaseType.IN_MEMORY_NE);
   }
 
   public async needsRepopulate(id: string): Promise<boolean> {
@@ -30,7 +31,7 @@ class DatastorePosts extends AbstractDatastore<IRepositoryContentEntry> {
     console.log(`Populating posts with post ID ${id}…`);
 
     // Remove entry before
-    await this.datastore.asyncRemove({ id }, { multi: false });
+    await this.db.remove({ id }, { multi: false });
 
     // Populate from Github
     const gitService = GitDelegator.Instance;
@@ -42,21 +43,21 @@ class DatastorePosts extends AbstractDatastore<IRepositoryContentEntry> {
       return this.get(id);
     }
 
-    const insertPromise = this.datastore.asyncInsert(post);
+    const insertPromise = this.db.insert(post);
     this.lastUpdatedDate.set(id, new Date());
     return insertPromise;
   }
 
   public getAll(): Promise<IRepositoryContentEntry[]> {
-    return this.datastore.asyncFind({});
+    return this.db.find({});
   }
 
   private async getCount(id: string): Promise<number> {
-    return (await this.datastore.asyncFind({ id })).length;
+    return (await this.db.find({ id })).length;
   }
 
   public async get(id: string): Promise<IRepositoryContentEntry> {
-    return this.datastore.asyncFindOne({ id });
+    return this.db.findOne({ id });
   }
 }
 

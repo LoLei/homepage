@@ -1,17 +1,18 @@
-import AsyncNedb from 'nedb-async';
-import { ILegacyPortolfio } from '../../pages/portfolio/legacy';
-import TimeDelta from '../date/delta';
-import GitDelegator from '../git/GitDelegator';
+import { ILegacyPortolfio } from '../../../pages/portfolio/legacy';
+import TimeDelta from '../../date/delta';
+import GitDelegator from '../../git/GitDelegator';
+import createDatabase, { DatabaseType } from '../db/DatabaseFactory';
+import IDatabase from '../db/IDatabase';
 import AbstractDatastore from './AbstractDatastore';
 
 class DatastorePostList extends AbstractDatastore<ILegacyPortolfio> {
   private lastUpdatedDate: Date;
-  private datastore: AsyncNedb<ILegacyPortolfio>;
+  protected db: IDatabase<ILegacyPortolfio>;
 
   public constructor() {
     super();
     this.lastUpdatedDate = new Date();
-    this.datastore = new AsyncNedb<ILegacyPortolfio>();
+    this.db = createDatabase<ILegacyPortolfio>(DatabaseType.IN_MEMORY_NE);
   }
 
   public async needsRepopulate(): Promise<boolean> {
@@ -27,7 +28,7 @@ class DatastorePostList extends AbstractDatastore<ILegacyPortolfio> {
     console.log('Populating legacy portfolio…');
 
     // Empty datastore before
-    await this.datastore.asyncRemove({}, { multi: true });
+    await this.db.remove({}, { multi: true });
 
     // Populate from Github
     const gitService = GitDelegator.Instance;
@@ -41,17 +42,17 @@ class DatastorePostList extends AbstractDatastore<ILegacyPortolfio> {
       return this.getAll();
     }
 
-    const insertPromise = this.datastore.asyncInsert({ portfolioReadme });
+    const insertPromise = this.db.insert({ portfolioReadme });
     this.lastUpdatedDate = new Date();
     return insertPromise;
   }
 
   private async getCount(): Promise<number> {
-    return (await this.datastore.asyncFind({})).length;
+    return (await this.db.find({})).length;
   }
 
   public getAll(): Promise<ILegacyPortolfio> {
-    return this.datastore.asyncFindOne({});
+    return this.db.findOne({});
   }
 }
 

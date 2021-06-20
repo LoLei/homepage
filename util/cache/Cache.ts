@@ -1,10 +1,10 @@
-import DatastoreLegacyPortfolio from './DatastoreLegacyPortfolio';
-import DatastorePortfolioList from './DatastorePortfolioList';
-import DatastorePostList from './DatastorePostList';
-import DatastorePosts from './DatastorePosts';
+import DatastoreLegacyPortfolio from './ds/DatastoreLegacyPortfolio';
+import DatastorePortfolioList from './ds/DatastorePortfolioList';
+import DatastorePostList from './ds/DatastorePostList';
+import DatastorePosts from './ds/DatastorePosts';
 
-class Database {
-  private static _instance: Database;
+class Cache {
+  private static _instance: Cache;
   public readonly datastorePostList: DatastorePostList;
   public readonly datastorePosts: DatastorePosts;
   public readonly datastorePortfolioList: DatastorePortfolioList;
@@ -17,9 +17,9 @@ class Database {
     this.datastoreLegacyPortfolio = new DatastoreLegacyPortfolio();
   }
 
-  public static get Instance(): Database {
+  public static get Instance(): Cache {
     return this._instance || (this._instance = new this());
   }
 }
 
-export default Database;
+export default Cache;

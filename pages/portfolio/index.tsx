@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import React from 'react';
 import Portfolio from '../../components/Portfolio';
-import Database from '../../util/db/Database';
+import Cache from '../../util/cache/Cache';
 import { IRepositoryMetadata } from '../../util/git/AbstractGitService';
 
 const PortfolioPage = (props: IPortfolioSections): JSX.Element => {
@@ -17,7 +17,7 @@ const PortfolioPage = (props: IPortfolioSections): JSX.Element => {
 export default PortfolioPage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const database = Database.Instance;
+  const database = Cache.Instance;
 
   if (await database.datastorePortfolioList.needsRepopulate()) {
     await database.datastorePortfolioList.populate();

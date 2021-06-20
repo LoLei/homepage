@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import React from 'react';
 import Posts from '../../components/Posts';
-import Database from '../../util/db/Database';
+import Cache from '../../util/cache/Cache';
 import { IRepositoryContentEntryMetadata } from '../../util/git/AbstractGitService';
 
 const PostsPage = (props: IProps): JSX.Element => {
@@ -15,7 +15,7 @@ interface IProps {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const database = Database.Instance;
+  const database = Cache.Instance;
 
   if (await database.datastorePostList.needsRepopulate()) {
     await database.datastorePostList.populate();

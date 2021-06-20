@@ -1,19 +1,20 @@
-import AsyncNedb from 'nedb-async';
-import { IPortFolioItemSpecification, IPortfolioSections } from '../../pages/portfolio';
-import TimeDelta from '../date/delta';
-import { IRepositoryMetadata } from '../git/AbstractGitService';
-import GitDelegator from '../git/GitDelegator';
+import { IPortFolioItemSpecification, IPortfolioSections } from '../../../pages/portfolio';
+import TimeDelta from '../../date/delta';
+import { IRepositoryMetadata } from '../../git/AbstractGitService';
+import GitDelegator from '../../git/GitDelegator';
+import portFolioItemsInput from '../../../resources/portfolioItems.json';
 import AbstractDatastore from './AbstractDatastore';
-import portFolioItemsInput from '../../resources/portfolioItems.json';
+import IDatabase from '../db/IDatabase';
+import createDatabase, { DatabaseType } from '../db/DatabaseFactory';
 
 class DatastorePortfolioList extends AbstractDatastore<IPortfolioSections> {
   private lastUpdatedDate: Date;
-  private datastore: AsyncNedb<IPortfolioSections>;
+  protected db: IDatabase<IPortfolioSections>;
 
   public constructor() {
     super();
     this.lastUpdatedDate = new Date();
-    this.datastore = new AsyncNedb<IPortfolioSections>();
+    this.db = createDatabase<IPortfolioSections>(DatabaseType.IN_MEMORY_NE);
   }
 
   public async needsRepopulate(): Promise<boolean> {
@@ -29,7 +30,7 @@ class DatastorePortfolioList extends AbstractDatastore<IPortfolioSections> {
     console.log('Populating portfolio list…');
 
     // Empty datastore before
-    await this.datastore.asyncRemove({}, { multi: true });
+    await this.db.remove({}, { multi: true });
 
     // Populate from Github
     const getPortFolioItemsViaGit = async (
@@ -112,17 +113,17 @@ class DatastorePortfolioList extends AbstractDatastore<IPortfolioSections> {
       },
     };
 
-    const insertPromise = this.datastore.asyncInsert(sections);
+    const insertPromise = this.db.insert(sections);
     this.lastUpdatedDate = new Date();
     return insertPromise;
   }
 
   private async getCount(): Promise<number> {
-    return (await this.datastore.asyncFind({})).length;
+    return (await this.db.find({})).length;
   }
 
   public getAll(): Promise<IPortfolioSections> {
-    return this.datastore.asyncFindOne({});
+    return this.db.findOne({});
   }
 }
 
