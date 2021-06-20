@@ -1,8 +1,8 @@
 import { GetServerSideProps } from 'next';
 import React from 'react';
 import Posts from '../../components/Posts';
+import Cache from '../../util/cache/Cache';
 import { IRepositoryContentEntryMetadata } from '../../util/git/AbstractGitService';
-import GitDelegator from '../../util/git/GitDelegator';
 
 const PostsPage = (props: IProps): JSX.Element => {
   return <Posts postListings={props.postListings} />;
@@ -15,8 +15,13 @@ interface IProps {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const gitService = GitDelegator.Instance;
-  const posts = await gitService.getRepositoryContentList('https://github.com/LoLei/posts');
+  const database = Cache.Instance;
+
+  if (await database.datastorePostList.needsRepopulate()) {
+    await database.datastorePostList.populate();
+  }
+
+  const posts = await database.datastorePostList.getAll();
 
   if (posts == null || posts.length === 0) {
     return {
@@ -25,6 +30,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
 
   return {
-    props: { postListings: posts },
+    props: {
+      postListings: posts.sort((a, b) => {
+        return a.name > b.name ? -1 : 1;
+      }),
+    },
   };
 };

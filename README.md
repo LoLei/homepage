@@ -4,9 +4,12 @@ This is the personal homepage of Lorenz Leitner (me).
 
 ## Features
 
-Uses the GitHub and GitLab API to pull in content from other repositories (live),
-i.e. no redeployment of the website is needed.  
-This is used mainly for posts in the blog section, and for items in the portfolio.
+Uses the GitHub and GitLab API to pull in content from other repositories
+(live), i.e. no redeployment of the website is needed. This is used mainly for
+posts in the blog section, and for items/repo statistics in the portfolio.  
+This content is cached in memory and only re-retrieved once a certain period of
+time is reached and a new request is made to the respective site-section, as to
+not overtax the APIs.
 
 ## Environment Variables
 
@@ -53,3 +56,5 @@ podman run \
   -p 3000:3000 \
   lolei/homepage
 ```
+
+(Docker et al. can also be used.)

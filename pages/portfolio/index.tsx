@@ -1,11 +1,10 @@
 import { GetServerSideProps } from 'next';
 import React from 'react';
 import Portfolio from '../../components/Portfolio';
-import portFolioItemsInput from '../../resources/portfolioItems.json';
+import Cache from '../../util/cache/Cache';
 import { IRepositoryMetadata } from '../../util/git/AbstractGitService';
-import GitDelegator from '../../util/git/GitDelegator';
 
-const PortfolioPage = (props: IProps): JSX.Element => {
+const PortfolioPage = (props: IPortfolioSections): JSX.Element => {
   return (
     <Portfolio
       portfolioSectionPersonal={props.portfolioSectionPersonal}
@@ -18,46 +17,19 @@ const PortfolioPage = (props: IProps): JSX.Element => {
 export default PortfolioPage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const getPortFolioItemsViaGit = async (
-    specs: IPortFolioItemSpecification[],
-    gitService: GitDelegator
-  ) => {
-    const ps: Promise<IRepositoryMetadata | undefined>[] = specs.map((pfi) => {
-      return gitService.getRepository(pfi.url);
-    });
+  const database = Cache.Instance;
 
-    const rps: IRepositoryMetadata[] = (await Promise.allSettled(ps))
-      .filter(({ status }) => status === 'fulfilled')
-      .filter((it) => (it as PromiseFulfilledResult<IRepositoryMetadata | undefined>).value != null)
-      .map((it) => (it as PromiseFulfilledResult<IRepositoryMetadata>).value);
-    return rps;
-  };
+  if (await database.datastorePortfolioList.needsRepopulate()) {
+    await database.datastorePortfolioList.populate();
+  }
 
-  const gitService = GitDelegator.Instance;
-  const personalPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGit(
-    portFolioItemsInput.personal.items,
-    gitService
-  );
-  const openSourcePromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGit(
-    portFolioItemsInput.openSource.items,
-    gitService
-  );
-  const schoolPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGit(
-    portFolioItemsInput.school.items,
-    gitService
-  );
-
-  const [portfolioDataPersonal, portfolioDataOpenSource, portfolioDataSchool] = await Promise.all([
-    personalPromise,
-    openSourcePromise,
-    schoolPromise,
-  ]);
+  const sections = await database.datastorePortfolioList.getAll();
 
   // If all are undefined, return 404
   if (
-    portfolioDataPersonal == null &&
-    portfolioDataOpenSource == null &&
-    portfolioDataSchool == null
+    sections.portfolioSectionPersonal.portfolioDataItems == null &&
+    sections.portfolioSectionOpenSource.portfolioDataItems == null &&
+    sections.portfolioSectionSchool.portfolioDataItems == null
   ) {
     return {
       notFound: true,
@@ -66,10 +38,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   // If all lists are empty, return 404
   if (
-    [portfolioDataPersonal, portfolioDataOpenSource, portfolioDataSchool].reduce(
-      (acc, it) => it.length === 0 && acc,
-      true
-    )
+    [
+      sections.portfolioSectionPersonal.portfolioDataItems,
+      sections.portfolioSectionOpenSource.portfolioDataItems,
+      sections.portfolioSectionSchool.portfolioDataItems,
+    ].reduce((acc, it) => it.length === 0 && acc, true)
   ) {
     return {
       notFound: true,
@@ -77,39 +50,17 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
 
   return {
-    props: {
-      portfolioSectionPersonal: {
-        portfolioDataItems: portfolioDataPersonal,
-        intro: portFolioItemsInput.personal.intro,
-      },
-      portfolioSectionOpenSource: {
-        // Some open-source projects may not have a description
-        portfolioDataItems: portfolioDataOpenSource.map((i: IRepositoryMetadata) => {
-          if (i.description.length === 0) {
-            const fallbackDescription = portFolioItemsInput.openSource.items.find(
-              (j) => j.name === i.name
-            )?.description;
-            i.description = fallbackDescription!;
-          }
-          return i;
-        }),
-        intro: portFolioItemsInput.openSource.intro,
-      },
-      portfolioSectionSchool: {
-        portfolioDataItems: portfolioDataSchool,
-        intro: portFolioItemsInput.school.intro,
-      },
-    },
+    props: sections,
   };
 };
 
-interface IProps {
+export interface IPortfolioSections {
   portfolioSectionPersonal: IPortfolioSection;
   portfolioSectionOpenSource: IPortfolioSection;
   portfolioSectionSchool: IPortfolioSection;
 }
 
-interface IPortFolioItemSpecification {
+export interface IPortFolioItemSpecification {
   name: string;
   owner: string;
   url: string;

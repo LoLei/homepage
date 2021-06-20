@@ -2,7 +2,7 @@ import React from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Post from '../../components/Post';
 import { IRepositoryContentEntry } from '../../util/git/AbstractGitService';
-import GitDelegator from '../../util/git/GitDelegator';
+import Cache from '../../util/cache/Cache';
 
 const PostPage = (props: IProps): JSX.Element => {
   return <Post postData={props.postData} />;
@@ -17,10 +17,16 @@ interface IProps {
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  // TODO: Rename pid to postName or something
+  // pid = post name
   const { pid } = context.query;
-  const gitService = GitDelegator.Instance;
-  const post = await gitService.getRepositoryFileContent(`https://github.com/LoLei/posts/${pid}`);
+
+  const database = Cache.Instance;
+
+  if (await database.datastorePosts.needsRepopulate(pid as string)) {
+    await database.datastorePosts.populate(pid as string);
+  }
+
+  const post = await database.datastorePosts.get(pid as string);
 
   if (post == null) {
     return {
