@@ -56,3 +56,5 @@ podman run \
   -p 3000:3000 \
   lolei/homepage
 ```
+
+(Docker et al. can also be used.)
