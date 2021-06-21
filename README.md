@@ -42,6 +42,9 @@ yarn start
 # Build
 podman build . -t ghcr.io/lolei/homepage
 
+# Or pull from Github's registry:
+podman pull ghcr.io/lolei/homepage:<version>
+
 # Run
 export $(xargs <.env.local)
 podman run \
@@ -55,9 +58,6 @@ podman run \
   --env-file ./.env.local \
   -p 3000:3000 \
   ghcr.io/lolei/homepage
-
-# Or pull from Github's registry:
-podman pull ghcr.io/lolei/homepage:0.1.0
 ```
 
 (Docker et al. can also be used.)
