@@ -16,10 +16,12 @@ spec:
     spec:
       containers:
       - name: homepage
-        image: homepage:1.0.0
+        image: ghcr.io/lolei/homepage:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
+      imagePullSecrets:
+      - name: regcred
 ---
 apiVersion: v1
 kind: Service
