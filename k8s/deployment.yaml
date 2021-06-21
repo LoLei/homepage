@@ -1,3 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-configmap
+data:
+  EMAIL_ADDRESS: lrnz.ltnr@gmail.com
+  GITHUB_PAT: $GITHUB_PAT
+---
 # TODO: livenessProbe, readinessProbe, restartPolicy
 apiVersion: apps/v1
 kind: Deployment
@@ -21,6 +29,9 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: homepage-configmap
       imagePullSecrets:
         - name: regcred
 ---
