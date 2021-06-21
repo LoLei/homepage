@@ -19,7 +19,7 @@ class GithubService extends AbstractGitService {
     }
     const res = await fetch(`${this.baseApiUrl}/repos/${urlParts.owner}/${urlParts.repoName}`, {
       headers: new Headers({
-        Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        Authorization: `token ${process.env.GITHUB_PAT}`,
         Accept: 'application/vnd.github.mercy-preview+json', // mercy-preview needed for topics
       }),
     });
@@ -48,7 +48,7 @@ class GithubService extends AbstractGitService {
       `${this.baseApiUrl}/repos/${urlParts.owner}/${urlParts.repoName}/contents`,
       {
         headers: new Headers({
-          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          Authorization: `token ${process.env.GITHUB_PAT}`,
           Accept: 'application/vnd.github.v3+json',
         }),
       }
@@ -74,7 +74,7 @@ class GithubService extends AbstractGitService {
       `${this.baseApiUrl}/repos/${urlParts.owner}/${urlParts.repoName}/contents/${urlParts.fileName}`,
       {
         headers: new Headers({
-          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          Authorization: `token ${process.env.GITHUB_PAT}`,
           Accept: 'application/vnd.github.v3.raw',
         }),
       }
@@ -90,7 +90,7 @@ class GithubService extends AbstractGitService {
   public async checkRateLimit(): Promise<IRateLimit> {
     const res = await fetch(`${this.baseApiUrl}/rate_limit`, {
       headers: new Headers({
-        Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        Authorization: `token ${process.env.GITHUB_PAT}`,
         Accept: 'application/vnd.github.v3+json',
       }),
     });

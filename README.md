@@ -17,7 +17,7 @@ The following environment variables must be defined:
 
 ```
 EMAIL_ADDRESS
-GITHUB_TOKEN
+GITHUB_PAT
 ```
 
 They are defined in `.env.local` for next.js/local development.
@@ -46,7 +46,7 @@ podman build . -t lolei/homepage
 export $(xargs <.env.local)
 podman run \
   -e EMAIL_ADDRESS=$EMAIL_ADDRESS \
-  -e GITHUB_TOKEN=$GITHUB_TOKEN \
+  -e GITHUB_PAT=$GITHUB_PAT \
   -p 3000:3000 \
   lolei/homepage
 
