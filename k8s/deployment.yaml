@@ -4,7 +4,6 @@ metadata:
   name: homepage-configmap
 data:
   EMAIL_ADDRESS: lrnz.ltnr@gmail.com
-  GITHUB_PAT: $GITHUB_PAT
 ---
 # TODO: livenessProbe, readinessProbe, restartPolicy
 apiVersion: apps/v1
@@ -32,6 +31,12 @@ spec:
           envFrom:
             - configMapRef:
                 name: homepage-configmap
+          env:
+            - name: GITHUB_PAT
+              valueFrom:
+                secretKeyRef:
+                  name: homepage-secret
+                  key: GITHUB_PAT
       imagePullSecrets:
         - name: regcred
 ---
