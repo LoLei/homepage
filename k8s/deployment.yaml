@@ -16,13 +16,13 @@ spec:
         app: homepage
     spec:
       containers:
-      - name: homepage
-        image: ghcr.io/lolei/homepage:0.1.0
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 3000
+        - name: homepage
+          image: ghcr.io/lolei/homepage:0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
       imagePullSecrets:
-      - name: regcred
+        - name: regcred
 ---
 apiVersion: v1
 kind: Service
@@ -34,9 +34,9 @@ spec:
   selector:
     app: homepage
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 3000
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -46,13 +46,13 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: homepage.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: homepage-svc
-            port:
-              number: 80
+    - host: homepage.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: homepage-svc
+                port:
+                  number: 80
