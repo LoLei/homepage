@@ -40,7 +40,7 @@ yarn start
 
 ```sh
 # Build
-podman build . -t lolei/homepage
+podman build . -t ghcr.io/lolei/homepage
 
 # Run
 export $(xargs <.env.local)
@@ -48,13 +48,16 @@ podman run \
   -e EMAIL_ADDRESS=$EMAIL_ADDRESS \
   -e GITHUB_PAT=$GITHUB_PAT \
   -p 3000:3000 \
-  lolei/homepage
+  ghcr.io/lolei/homepage
 
 # Or
 podman run \
   --env-file ./.env.local \
   -p 3000:3000 \
-  lolei/homepage
+  ghcr.io/lolei/homepage
+
+# Or pull from Github's registry:
+podman pull ghcr.io/lolei/homepage:0.1.0
 ```
 
 (Docker et al. can also be used.)
