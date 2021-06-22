@@ -52,15 +52,15 @@ class DatastorePortfolioList extends AbstractDatastore<IPortfolioSections> {
 
     const gitService = GitDelegator.Instance;
     const personalPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGit(
-      portFolioItemsInput.personal.items,
+      Object.values(portFolioItemsInput.personal.items),
       gitService
     );
     const openSourcePromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGit(
-      portFolioItemsInput.openSource.items,
+      Object.values(portFolioItemsInput.openSource.items),
       gitService
     );
     const schoolPromise: Promise<IRepositoryMetadata[]> = getPortFolioItemsViaGit(
-      portFolioItemsInput.school.items,
+      Object.values(portFolioItemsInput.school.items),
       gitService
     );
 
@@ -93,12 +93,9 @@ class DatastorePortfolioList extends AbstractDatastore<IPortfolioSections> {
       entry: IRepositoryMetadata,
       sectionType: 'personal' | 'school'
     ): IRepositoryMetadata => {
-      // Finding the corresponding image for every entry like this isn't ideal,
-      // a different data structure could be used instead, e.g. one that maps
-      // from name to entry instead of this one that has a list of entries
-      const image = portFolioItemsInput[sectionType].items.find(
-        (it: IPortFolioItemSpecification) => it.name === entry.name
-      )?.image;
+      const image = (
+        portFolioItemsInput[sectionType].items as Record<string, IPortFolioItemSpecification>
+      )[entry.name]?.image;
       entry.image = image || 'no image provided';
       return entry;
     };
@@ -113,7 +110,9 @@ class DatastorePortfolioList extends AbstractDatastore<IPortfolioSections> {
       portfolioSectionOpenSource: {
         // Some open-source projects may not have a description
         portfolioDataItems: portfolioDataOpenSource.map((i: IRepositoryMetadata) => {
-          const inputItem = portFolioItemsInput.openSource.items.find((j) => j.name === i.name);
+          const inputItem = (
+            portFolioItemsInput.openSource.items as Record<string, IPortFolioItemSpecification>
+          )[i.name];
           if (i.description.length === 0) {
             const fallbackDescription = inputItem?.description;
             i.description = fallbackDescription!;
