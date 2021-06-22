@@ -38,6 +38,14 @@ const PortfolioItem = (props: IProps): JSX.Element => {
             <b>URL:</b> <a href={props.data.url}>{props.data.url}</a>
           </li>
         </ul>
+        <div className={styles.imageContainer}>
+          <img
+            className={styles.image}
+            title={props.data.name}
+            src={`data:image/png;base64,${props.data.image}`}
+            alt={`Image of ${props.data.name}`}
+          />
+        </div>
       </div>
     </div>
   );

@@ -91,24 +91,32 @@ class DatastorePortfolioList extends AbstractDatastore<IPortfolioSections> {
 
     const sections = {
       portfolioSectionPersonal: {
-        portfolioDataItems: portfolioDataPersonal,
+        portfolioDataItems: portfolioDataPersonal.map((i: IRepositoryMetadata) => {
+          const image = portFolioItemsInput.personal.items.find((j) => j.name === i.name)?.image;
+          i.image = image || 'no image provided';
+          return i;
+        }),
         intro: portFolioItemsInput.personal.intro,
       },
       portfolioSectionOpenSource: {
         // Some open-source projects may not have a description
         portfolioDataItems: portfolioDataOpenSource.map((i: IRepositoryMetadata) => {
+          const inputItem = portFolioItemsInput.openSource.items.find((j) => j.name === i.name);
           if (i.description.length === 0) {
-            const fallbackDescription = portFolioItemsInput.openSource.items.find(
-              (j) => j.name === i.name
-            )?.description;
+            const fallbackDescription = inputItem?.description;
             i.description = fallbackDescription!;
           }
+          i.image = inputItem?.image || 'no image provided';
           return i;
         }),
         intro: portFolioItemsInput.openSource.intro,
       },
       portfolioSectionSchool: {
-        portfolioDataItems: portfolioDataSchool,
+        portfolioDataItems: portfolioDataSchool.map((i: IRepositoryMetadata) => {
+          const image = portFolioItemsInput.school.items.find((j) => j.name === i.name)?.image;
+          i.image = image || 'no image provided';
+          return i;
+        }),
         intro: portFolioItemsInput.school.intro,
       },
     };

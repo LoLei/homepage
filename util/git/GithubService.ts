@@ -36,6 +36,7 @@ class GithubService extends AbstractGitService {
       description,
       url,
       stargazersUrl: `${url}/stargazers`,
+      image: '',
     };
   }
 

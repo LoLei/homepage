@@ -1,5 +1,6 @@
 @use 'theme';
 @use 'mixins';
+@use 'variables';
 
 .default {
   @include mixins.highlight-language(theme.$lang-default);
@@ -23,4 +24,19 @@
 
 .cpp {
   @include mixins.highlight-language(theme.$lang-cpp);
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+
+  .image {
+    width: 25vw;
+
+    @include mixins.mobile-margins;
+
+    @media only screen and (max-width: variables.$tablet-width) {
+      width: 100%;
+    }
+  }
 }

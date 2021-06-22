@@ -30,6 +30,7 @@ class GitlabService extends AbstractGitService {
       description,
       url: '',
       stargazersUrl: '',
+      image: '',
     };
   }
 

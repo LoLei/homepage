@@ -65,6 +65,7 @@ export interface IPortFolioItemSpecification {
   owner: string;
   url: string;
   description?: string;
+  image: string;
 }
 
 export interface IPortfolioSection {

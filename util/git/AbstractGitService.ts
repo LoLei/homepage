@@ -24,6 +24,7 @@ export interface IRepositoryMetadata {
   description: string;
   url: string;
   stargazersUrl: string;
+  image: string;
 }
 
 export interface IRepositoryContentEntryMetadata {
