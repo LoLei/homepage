@@ -89,13 +89,25 @@ class DatastorePortfolioList extends AbstractDatastore<IPortfolioSections> {
       return this.getAll();
     }
 
+    const setImage = (
+      entry: IRepositoryMetadata,
+      sectionType: 'personal' | 'school'
+    ): IRepositoryMetadata => {
+      // Finding the corresponding image for every entry like this isn't ideal,
+      // a different data structure could be used instead, e.g. one that maps
+      // from name to entry instead of this one that has a list of entries
+      const image = portFolioItemsInput[sectionType].items.find(
+        (it: IPortFolioItemSpecification) => it.name === entry.name
+      )?.image;
+      entry.image = image || 'no image provided';
+      return entry;
+    };
+
     const sections = {
       portfolioSectionPersonal: {
-        portfolioDataItems: portfolioDataPersonal.map((i: IRepositoryMetadata) => {
-          const image = portFolioItemsInput.personal.items.find((j) => j.name === i.name)?.image;
-          i.image = image || 'no image provided';
-          return i;
-        }),
+        portfolioDataItems: portfolioDataPersonal.map((it: IRepositoryMetadata) =>
+          setImage(it, 'personal')
+        ),
         intro: portFolioItemsInput.personal.intro,
       },
       portfolioSectionOpenSource: {
@@ -112,11 +124,9 @@ class DatastorePortfolioList extends AbstractDatastore<IPortfolioSections> {
         intro: portFolioItemsInput.openSource.intro,
       },
       portfolioSectionSchool: {
-        portfolioDataItems: portfolioDataSchool.map((i: IRepositoryMetadata) => {
-          const image = portFolioItemsInput.school.items.find((j) => j.name === i.name)?.image;
-          i.image = image || 'no image provided';
-          return i;
-        }),
+        portfolioDataItems: portfolioDataSchool.map((it: IRepositoryMetadata) =>
+          setImage(it, 'school')
+        ),
         intro: portFolioItemsInput.school.intro,
       },
     };
