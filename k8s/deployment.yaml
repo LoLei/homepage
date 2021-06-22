@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: ghcr.io/lolei/homepage:0.1.0
+          image: ghcr.io/lolei/homepage:0.1.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -37,6 +37,16 @@ spec:
                 secretKeyRef:
                   name: homepage-secret
                   key: GITHUB_PAT
+          livenessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              port: 3000
+              path: /api/health
+          readinessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              port: 3000
+              path: /api/health
       imagePullSecrets:
         - name: regcred
 ---
