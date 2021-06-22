@@ -5,7 +5,6 @@ metadata:
 data:
   EMAIL_ADDRESS: lrnz.ltnr@gmail.com
 ---
-# TODO: livenessProbe, readinessProbe
 apiVersion: apps/v1
 kind: Deployment
 metadata:
