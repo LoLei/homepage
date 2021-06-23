@@ -1,4 +1,4 @@
-name: CI
+name: Preliminary
 
 on:
   push:

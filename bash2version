@@ -1,4 +1,6 @@
 #!/bin/bash
+# Script source https://github.com/maxaudron/bash2version
+
 # Sets the string to use a replace target
 VER='VERSION'
 
