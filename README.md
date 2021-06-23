@@ -75,6 +75,6 @@ podman run \
 ## CI
 
 Multiple checks are run automatically on each push to master and on pull requests from non-fork
-sources. A manual workflow can be triggered to build and publish the container image from the latest
-commit on master automatically to the Github Container Registry. In the future, an additional
+sources. When a version tag is pushed via bash2version, a workflow is triggered to build and publish
+the container image automatically to the Github Container Registry. In the future, an additional
 workflow may be added that uses this image to deploy it automatically to the Kubernetes cluster.
