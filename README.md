@@ -76,5 +76,6 @@ podman run \
 
 Multiple checks are run automatically on each push to master and on pull requests from non-fork
 sources. When a version tag is pushed via bash2version, a workflow is triggered to build and publish
-the container image automatically to the Github Container Registry. In the future, an additional
-workflow may be added that uses this image to deploy it automatically to the Kubernetes cluster.
+the container image automatically to the [Github Container Registry](https://github.com/LoLei/homepage/pkgs/container/homepage).
+In the future, an additional workflow may be added that uses this image to deploy it automatically
+to the Kubernetes cluster.
