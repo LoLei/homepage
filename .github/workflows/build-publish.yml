@@ -13,8 +13,11 @@ jobs:
       - name: Set env
         run: |
           export GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)"
-          export VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[", ]//g')"
+          echo GITHUB_SHA_SHORT
+          export VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[", ]//g')
+          echo VERSION
           export IMAGE=ghcr.io/${{ github.repository }}:$VERSION-${{ github.ref }}-$GITHUB_SHA_SHORT
+          echo IMAGE
 
           echo "GITHUB_SHA_SHORT=$GITHUB_SHA_SHORT" >> $GITHUB_ENV
           echo "VERSION=$VERSION" >> $GITHUB_ENV
