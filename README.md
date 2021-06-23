@@ -38,13 +38,23 @@ yarn start
 
 ### Container
 
+#### Build
+
 ```sh
-# Build
 podman build . -t ghcr.io/lolei/homepage
+```
 
-# Or pull from Github's registry:
-podman pull ghcr.io/lolei/homepage:<version>
+#### Pull
 
+```sh
+podman pull ghcr.io/lolei/homepage:<tag>
+```
+
+View all available image versions [here](https://github.com/LoLei/homepage/pkgs/container/homepage).
+
+#### Run
+
+```sh
 # Run
 export $(xargs <.env.local)
 podman run \
@@ -61,3 +71,10 @@ podman run \
 ```
 
 (Docker et al. can also be used.)
+
+## CI
+
+Multiple checks are run automatically on each push to master and on pull requests from non-fork
+sources. A manual workflow can be triggered to build and publish the container image from the latest
+commit on master automatically to the Github Container Registry. In the future, an additional
+workflow may be added that uses this image to deploy it automatically to the Kubernetes cluster.
