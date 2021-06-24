@@ -2,6 +2,10 @@
 
 This is the personal homepage of Lorenz Leitner (me).
 
+Currently deployed at [lolei.dev](https://lolei.dev).<sup>1</sup>  
+<sup>1 I may take this down at some points because there is little point in paying $X/month for
+things realistically nobody visits that often.</sup>
+
 ## Features
 
 Uses the GitHub and GitLab API to pull in content from other repositories
@@ -77,5 +81,5 @@ podman run \
 Multiple checks are run automatically on each push to master and on pull requests from non-fork
 sources. When a version tag is pushed via bash2version, a workflow is triggered to build and publish
 the container image automatically to the [Github Container Registry](https://github.com/LoLei/homepage/pkgs/container/homepage).
-In the future, an additional workflow may be added that uses this image to deploy it automatically
-to the Kubernetes cluster.
+After that, an additional workflow is triggered that uses this image to deploy it automatically to
+the Kubernetes cluster.
