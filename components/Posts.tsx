@@ -8,6 +8,7 @@ const Posts = (props: IProps): JSX.Element => {
     <div className={styles.container}>
       <div>
         <h1>Posts about things</h1>
+        <p>(These posts are sourced from <a href="https://github.com/LoLei/posts">Github</a>.)</p>
       </div>
 
       <div>
