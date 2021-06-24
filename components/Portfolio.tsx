@@ -14,7 +14,10 @@ const Portfolio = (props: IProps): JSX.Element => {
 
       <h2>Selected Projects</h2>
       <div>Some projects of notability…</div>
-      <p>(These entries are sourced from a JSON file containing links to GitHub and GitLab repos. The stats are retrieved from there.)</p>
+      <p>
+        (These entries are sourced from a JSON file containing links to GitHub and GitLab repos. The
+        stats are retrieved from there.)
+      </p>
 
       <div className={styles.portfolioItems}>
         <PortfolioItemsSection
