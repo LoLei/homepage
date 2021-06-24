@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: ghcr.io/lolei/homepage:0.2.0-main-79634388
+          image: ghcr.io/lolei/homepage:0.3.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -67,9 +67,16 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: homepage-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  tls:
+    - hosts:
+        - lolei.dev
+      secretName: homepage-tls
   rules:
-    - host: homepage.com
+    - host: lolei.dev
       http:
         paths:
           - path: /
