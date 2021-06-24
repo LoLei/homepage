@@ -27,6 +27,9 @@ Currently deployed at [lolei.dev](https://lolei.dev).<sup>1</sup>
 <sup>1 I may take this down at some points because there is little point in paying $X/month for
 things realistically nobody visits that often.</sup>
 
+Below is a summary of the website, a more detailed description can be found in the
+[first blog post](https://lolei.dev/posts/2021-06-24-how-this-website-works.md).
+
 ## Features
 
 Uses the GitHub and GitLab API to pull in content from other repositories
