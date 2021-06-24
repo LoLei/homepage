@@ -1,3 +1,24 @@
+<p align="center">
+  <a href="https://github.com/LoLei/homepage/actions/workflows/preliminary.yml" alt="Workflow preliminary">
+    <img src="https://github.com/LoLei/homepage/actions/workflows/preliminary.yml/badge.svg"/>
+  </a>
+  <a href="https://github.com/LoLei/homepage/actions/workflows/build-publish-deploy.yml" alt="Workflow build publish deploy">
+    <img src="https://github.com/LoLei/homepage/actions/workflows/build-publish-deploy.yml/badge.svg"/>
+  </a>
+    <a href="https://lolei.dev/" alt="Website">
+    <img src="https://img.shields.io/website?url=https%3A%2F%2Flolei.dev%2F"/>
+  </a>
+  <a href="https://github.com/LoLei/homepage/blob/main/LICENSE" alt="License">
+    <img src="https://img.shields.io/github/license/lolei/homepage"/>
+  </a>
+  <a href="https://github.com/LoLei/homepage/releases" alt="Release">
+    <img src="https://img.shields.io/github/v/tag/lolei/homepage"/>
+  </a>
+  <a href="https://github.com/LoLei/homepage/pkgs/container/homepage" alt="Package">
+    <img src="https://img.shields.io/github/v/tag/lolei/homepage?color=blueviolet&label=package"/>
+  </a>
+</p>
+
 # Homepage
 
 This is the personal homepage of Lorenz Leitner (me).
