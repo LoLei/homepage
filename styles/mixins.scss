@@ -20,8 +20,14 @@
   }
 }
 
-@mixin mid-unset-width {
+@mixin mid-lower-width {
   @media only screen and (max-width: variables.$mid-width) {
+    width: 35em;
+  }
+}
+
+@mixin tablet-unset-width {
+  @media only screen and (max-width: variables.$tablet-width) {
     width: unset;
   }
 }

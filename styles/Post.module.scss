@@ -10,10 +10,13 @@
   .content {
     width: 50em;
 
-    @include mixins.mid-unset-width;
+    @include mixins.mid-lower-width;
+    @include mixins.tablet-unset-width;
 
-    pre {
-      width: 100vw;
+    @media only screen and (max-width: variables.$mid-width) {
+      pre {
+        width: 100vw;
+      }
     }
   }
 }
