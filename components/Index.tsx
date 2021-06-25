@@ -19,7 +19,7 @@ const Index = (props: IProps): JSX.Element => {
       </div>
 
       <div className={styles.siteInformation}>
-        <p>This is where you&apos;ll find:</p>
+        <p>Here is where you&apos;ll find:</p>
         <ul>
           <li>Contact information</li>
           <li>Links to all my other online presences</li>
