@@ -1,9 +1,9 @@
 import React from 'react';
 import '../styles/all.scss';
 import type { AppProps } from 'next/app';
-import Head from 'next/head';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Head from 'next/head';
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (

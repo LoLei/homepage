@@ -1,10 +1,18 @@
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import React from 'react';
 import LegacyPortfolio from '../../components/LegacyPortfolio';
 import Cache from '../../util/cache/Cache';
 
 const LegacyPortfolioPage = (props: ILegacyPortolfio): JSX.Element => {
-  return <LegacyPortfolio portfolioReadme={props.portfolioReadme} />;
+  return (
+    <>
+      <Head>
+        <title>Lorenz Leitner - Legacy Portfolio</title>
+      </Head>
+      <LegacyPortfolio portfolioReadme={props.portfolioReadme} />
+    </>
+  );
 };
 
 export default LegacyPortfolioPage;

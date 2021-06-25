@@ -3,9 +3,17 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Post from '../../components/Post';
 import { IRepositoryContentEntry } from '../../util/git/AbstractGitService';
 import Cache from '../../util/cache/Cache';
+import Head from 'next/head';
 
 const PostPage = (props: IProps): JSX.Element => {
-  return <Post postData={props.postData} />;
+  return (
+    <>
+      <Head>
+        <title>Lorenz Leitner - {props.postData.fileName}</title>
+      </Head>
+      <Post postData={props.postData} />
+    </>
+  );
 };
 
 export default PostPage;

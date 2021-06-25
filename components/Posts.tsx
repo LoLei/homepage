@@ -7,7 +7,7 @@ const Posts = (props: IProps): JSX.Element => {
   return (
     <div className={styles.container}>
       <div>
-        <h1>Posts about things</h1>
+        <h1>Posts About Things</h1>
         <p>
           (These posts are sourced from <a href="https://github.com/LoLei/posts">Github</a>.)
         </p>

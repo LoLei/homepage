@@ -1,9 +1,17 @@
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import React from 'react';
 import Index from '../components/Index';
 
 const IndexPage = (props: IProps): JSX.Element => {
-  return <Index email={props.email} />;
+  return (
+    <>
+      <Head>
+        <title>Lorenz Leitner - Homepage</title>
+      </Head>
+      <Index email={props.email} />
+    </>
+  );
 };
 
 export default IndexPage;

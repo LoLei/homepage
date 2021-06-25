@@ -1,11 +1,19 @@
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import React from 'react';
 import Posts from '../../components/Posts';
 import Cache from '../../util/cache/Cache';
 import { IRepositoryContentEntryMetadata } from '../../util/git/AbstractGitService';
 
 const PostsPage = (props: IProps): JSX.Element => {
-  return <Posts postListings={props.postListings} />;
+  return (
+    <>
+      <Head>
+        <title>Lorenz Leitner - Posts</title>
+      </Head>
+      <Posts postListings={props.postListings} />
+    </>
+  );
 };
 
 export default PostsPage;
