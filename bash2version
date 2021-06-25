@@ -16,6 +16,7 @@ PREFIX=''
 # use $VER
 FILES=(
   'package.json;"version": "VERSION"' # Simple usage
+  'k8s/deployment.yaml;image: ghcr.io\/lolei\/homepage:VERSION'
   # "package.json;\"version\": \"$PREFIX$VER\"" # add the version replace string and version prefix from variables
 )
 
