@@ -24,11 +24,14 @@ export interface ILegacyPortolfio {
 export const getServerSideProps: GetServerSideProps = async () => {
   const database = Cache.Instance;
 
-  if (await database.datastoreLegacyPortfolio.needsRepopulate()) {
-    await database.datastoreLegacyPortfolio.populate();
-  }
+  const repopulateIfNecessary = async (): Promise<void> => {
+    if (await database.datastoreLegacyPortfolio.needsRepopulate()) {
+      await database.datastoreLegacyPortfolio.populate();
+    }
+  };
 
   const legacyPortfolio = await database.datastoreLegacyPortfolio.getAll();
+  repopulateIfNecessary();
 
   if (legacyPortfolio == null) {
     return {

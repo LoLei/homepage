@@ -4,6 +4,7 @@ metadata:
   name: homepage-configmap
 data:
   EMAIL_ADDRESS: lrnz.ltnr@gmail.com
+  REFRESH_RATE_HOURS: '1'
 ---
 apiVersion: apps/v1
 kind: Deployment

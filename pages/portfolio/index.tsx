@@ -25,11 +25,20 @@ export default PortfolioPage;
 export const getServerSideProps: GetServerSideProps = async () => {
   const database = Cache.Instance;
 
-  if (await database.datastorePortfolioList.needsRepopulate()) {
-    await database.datastorePortfolioList.populate();
-  }
+  const repopulateIfNecessary = async (): Promise<void> => {
+    if (await database.datastorePortfolioList.needsRepopulate()) {
+      await database.datastorePortfolioList.populate();
+    }
+  };
 
   const sections = await database.datastorePortfolioList.getAll();
+  repopulateIfNecessary();
+
+  if (sections == null) {
+    return {
+      notFound: true,
+    };
+  }
 
   // If all are undefined, return 404
   if (

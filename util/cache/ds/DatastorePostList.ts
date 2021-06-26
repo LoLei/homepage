@@ -17,10 +17,15 @@ class DatastorePostList extends AbstractDatastore<IRepositoryContentEntryMetadat
 
   public async needsRepopulate(): Promise<boolean> {
     const age = TimeDelta.absoluteTimeDifferenceInHours(this.lastUpdatedDate, new Date());
-    if ((await this.getAll()).length === 0 || age >= 1) {
+    if (
+      (await this.getAll()).length === 0 ||
+      age >= parseInt(process.env.REFRESH_RATE_HOURS || '1')
+    ) {
       return true;
     }
-    console.log(`Posts list needs repopulate in ${1 - age}h`);
+    console.log(
+      `Posts list needs repopulate in ${parseInt(process.env.REFRESH_RATE_HOURS || '1') - age}h`
+    );
     return false;
   }
 

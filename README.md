@@ -46,6 +46,7 @@ The following environment variables must be defined:
 ```
 EMAIL_ADDRESS
 GITHUB_PAT
+REFRESH_RATE_HOURS
 ```
 
 They are defined in `.env.local` for next.js/local development.
@@ -88,6 +89,7 @@ export $(xargs <.env.local)
 podman run \
   -e EMAIL_ADDRESS=$EMAIL_ADDRESS \
   -e GITHUB_PAT=$GITHUB_PAT \
+  -e REFRESH_RATE_HOURS=$REFRESH_RATE_HOURS \
   -p 3000:3000 \
   ghcr.io/lolei/homepage
 

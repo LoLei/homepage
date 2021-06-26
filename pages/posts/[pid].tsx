@@ -30,11 +30,14 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const database = Cache.Instance;
 
-  if (await database.datastorePosts.needsRepopulate(pid as string)) {
-    await database.datastorePosts.populate(pid as string);
-  }
+  const repopulateIfNecessary = async (): Promise<void> => {
+    if (await database.datastorePosts.needsRepopulate(pid as string)) {
+      await database.datastorePosts.populate(pid as string);
+    }
+  };
 
   const post = await database.datastorePosts.get(pid as string);
+  repopulateIfNecessary();
 
   if (post == null) {
     return {

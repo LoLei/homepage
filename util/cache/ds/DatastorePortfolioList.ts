@@ -19,10 +19,12 @@ class DatastorePortfolioList extends AbstractDatastore<IPortfolioSections> {
 
   public async needsRepopulate(): Promise<boolean> {
     const age = TimeDelta.absoluteTimeDifferenceInHours(this.lastUpdatedDate, new Date());
-    if ((await this.getCount()) === 0 || age >= 1) {
+    if ((await this.getCount()) === 0 || age >= parseInt(process.env.REFRESH_RATE_HOURS || '1')) {
       return true;
     }
-    console.log(`Portfolio list needs repopulate in ${1 - age}h`);
+    console.log(
+      `Portfolio list needs repopulate in ${parseInt(process.env.REFRESH_RATE_HOURS || '1') - age}h`
+    );
     return false;
   }
 

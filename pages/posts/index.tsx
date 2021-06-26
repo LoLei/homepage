@@ -25,11 +25,14 @@ interface IProps {
 export const getServerSideProps: GetServerSideProps = async () => {
   const database = Cache.Instance;
 
-  if (await database.datastorePostList.needsRepopulate()) {
-    await database.datastorePostList.populate();
-  }
+  const repopulateIfNecessary = async (): Promise<void> => {
+    if (await database.datastorePostList.needsRepopulate()) {
+      await database.datastorePostList.populate();
+    }
+  };
 
   const posts = await database.datastorePostList.getAll();
+  repopulateIfNecessary();
 
   if (posts == null || posts.length === 0) {
     return {
