@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../styles/Footer.module.scss';
+import HeaderSeparator from './HeaderSeparator';
 
 const Footer = (): JSX.Element => {
   return (
@@ -7,6 +8,12 @@ const Footer = (): JSX.Element => {
       <span>
         <a href="https://github.com/LoLei/homepage" title="Source">
           Made with ❤ by me
+        </a>
+      </span>
+      <HeaderSeparator />
+      <span>
+        <a href="https://grafana.lolei.dev" title="Cluster status">
+          Status
         </a>
       </span>
     </footer>

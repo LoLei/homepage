@@ -24,9 +24,21 @@ const Index = (props: IProps): JSX.Element => {
         <ul>
           <li>Contact information</li>
           <li>Links to all my other online presences</li>
-          <li><Link href="/about"><a>More information about me</a></Link></li>
-          <li><Link href="/portfolio"><a>My portfolio</a></Link></li>
-          <li><Link href="/posts"><a>Blog posts</a></Link></li>
+          <li>
+            <Link href="/about">
+              <a>More information about me</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/portfolio">
+              <a>My portfolio</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/posts">
+              <a>Blog posts</a>
+            </Link>
+          </li>
         </ul>
       </div>
 
