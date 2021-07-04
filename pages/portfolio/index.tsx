@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
 import React from 'react';
+import HeadComponent from '../../components/HeadComponent';
 import Portfolio from '../../components/Portfolio';
 import Cache from '../../util/cache/Cache';
 import { IRepositoryMetadata } from '../../util/git/AbstractGitService';
@@ -8,9 +8,7 @@ import { IRepositoryMetadata } from '../../util/git/AbstractGitService';
 const PortfolioPage = (props: IPortfolioSections): JSX.Element => {
   return (
     <>
-      <Head>
-        <title>Lorenz Leitner - Portfolio</title>
-      </Head>
+      <HeadComponent title="Lorenz Leitner - Portfolio" />
       <Portfolio
         portfolioSectionPersonal={props.portfolioSectionPersonal}
         portfolioSectionOpenSource={props.portfolioSectionOpenSource}

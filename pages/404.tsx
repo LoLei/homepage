@@ -2,16 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from '../styles/NotFound.module.scss';
-import Head from 'next/head';
+import HeadComponent from '../components/HeadComponent';
 
 const NotFound = (): JSX.Element => {
   const router = useRouter();
 
   return (
     <>
-      <Head>
-        <title>Lorenz Leitner - 404</title>
-      </Head>
+      <HeadComponent title="Lorenz Leitner - 404" />
       <div className={styles.container}>
         <h1>404 - Content Not Found</h1>
 

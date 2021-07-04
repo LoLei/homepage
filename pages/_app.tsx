@@ -3,14 +3,12 @@ import '../styles/all.scss';
 import type { AppProps } from 'next/app';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Head from 'next/head';
+import HeadComponent from '../components/HeadComponent';
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
     <>
-      <Head>
-        <title>Lorenz Leitner</title>
-      </Head>
+      <HeadComponent title="Lorenz Leitner" />
       <div className="container">
         <div className="header">
           <Header />

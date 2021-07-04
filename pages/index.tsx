@@ -1,15 +1,13 @@
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
 import React from 'react';
+import HeadComponent from '../components/HeadComponent';
 import Index from '../components/Index';
 import Cache from '../util/cache/Cache';
 
 const IndexPage = (props: IProps): JSX.Element => {
   return (
     <>
-      <Head>
-        <title>Lorenz Leitner - Homepage</title>
-      </Head>
+      <HeadComponent title="Lorenz Leitner - Homepage" />
       <Index email={props.email} />
     </>
   );
