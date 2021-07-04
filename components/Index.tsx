@@ -4,6 +4,7 @@ import React from 'react';
 import Obfuscate from 'react-obfuscate';
 import styles from '../styles/Index.module.scss';
 import { FaFacebook, FaGithub, FaGitlab, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import Link from 'next/link';
 
 const Index = (props: IProps): JSX.Element => {
   return (
@@ -13,9 +14,9 @@ const Index = (props: IProps): JSX.Element => {
       </div>
 
       <div className={styles.subtitle}>
-        <h2>
-          <i>Welcome to my homepage</i>
-        </h2>
+        <h3>
+          <i>Software Developer from Austria</i>
+        </h3>
       </div>
 
       <div className={styles.siteInformation}>
@@ -23,9 +24,9 @@ const Index = (props: IProps): JSX.Element => {
         <ul>
           <li>Contact information</li>
           <li>Links to all my other online presences</li>
-          <li>More information about me</li>
-          <li>My portfolio</li>
-          <li>Blog posts</li>
+          <li><Link href="/about"><a>More information about me</a></Link></li>
+          <li><Link href="/portfolio"><a>My portfolio</a></Link></li>
+          <li><Link href="/posts"><a>Blog posts</a></Link></li>
         </ul>
       </div>
 

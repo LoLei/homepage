@@ -15,7 +15,7 @@ Hi, I’m Lorenz. Here are some facts about me that might be of interest to you:
     From [Graz University of Technology](https://www.tugraz.at/en/home/)
 * **Interests:** 
     * Python, C++, many other programming languages
-    * Linux, vim, ricing, ...
+    * Linux, vim, [ricing](https://github.com/LoLei/dotfiles), ...
     * Free and open-source software
 `;
 

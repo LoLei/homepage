@@ -42,7 +42,7 @@ const PortfolioItem = (props: IProps): JSX.Element => {
           <img
             className={styles.image}
             title={props.data.name}
-            src={`data:image/png;base64,${props.data.image}`}
+            src={`/static/portfolioImages/${props.data.image}`}
             alt={`Image of ${props.data.name}`}
           />
         </div>
