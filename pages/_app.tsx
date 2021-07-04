@@ -3,12 +3,10 @@ import '../styles/all.scss';
 import type { AppProps } from 'next/app';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import HeadComponent from '../components/HeadComponent';
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
     <>
-      <HeadComponent title="Lorenz Leitner" />
       <div className="container">
         <div className="header">
           <Header />
