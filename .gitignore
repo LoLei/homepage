@@ -1,9 +1,9 @@
 k8s/secrets/*
 !*-sealed.yaml
 
-*.png
 *.xcf
 *.base64
+resources/images
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
