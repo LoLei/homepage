@@ -12,7 +12,7 @@ const Footer = (): JSX.Element => {
       </span>
       <HeaderSeparator />
       <span>
-        <a href="https://grafana.lolei.dev" title="Cluster status">
+        <a href="https://k8s-dashboard.lolei.dev" title="Cluster status">
           Status
         </a>
       </span>
