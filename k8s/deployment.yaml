@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: ghcr.io/lolei/homepage:1.3.1
+          image: ghcr.io/lolei/homepage:1.4.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
