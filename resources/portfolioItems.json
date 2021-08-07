@@ -26,6 +26,12 @@
         "url": "https://github.com/LoLei/redditcleaner",
         "image": "redditcleaner.png"
       },
+      "k8s-dashboard": {
+        "name": "k8s-dashboard",
+        "owner": "LoLei",
+        "url": "https://github.com/LoLei/k8s-dashboard",
+        "image": "k8s-dashboard.png"
+      },
       "homepage": {
         "name": "homepage",
         "owner": "LoLei",
