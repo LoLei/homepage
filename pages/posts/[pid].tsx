@@ -6,9 +6,17 @@ import Cache from '../../util/cache/Cache';
 import HeadComponent from '../../components/HeadComponent';
 
 const PostPage = (props: IProps): JSX.Element => {
+  /**
+   * Gets the first line of the post content, assumes the h1 title is there and returns it.
+   * @returns a properly formatted title
+   */
+  const getFormattedTitle = (): string => {
+    return props.postData.content.split('\n')[0].substr(2);
+  };
+
   return (
     <>
-      <HeadComponent title={`Lorenz Leitner - ${props.postData.fileName}`} />
+      <HeadComponent title={`Lorenz Leitner - ${getFormattedTitle()}`} />
       <Post postData={props.postData} />
     </>
   );
