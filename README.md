@@ -49,7 +49,8 @@ GITHUB_PAT
 REFRESH_RATE_HOURS
 ```
 
-They are defined in `.env.local` for next.js/local development.
+They are defined in `.env.local` for next.js/local development.  
+The values of these variables (except for the email address) are never exposed on the client side.
 
 ## Development
 
