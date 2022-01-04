@@ -32,6 +32,12 @@
         "url": "https://github.com/LoLei/k8s-dashboard",
         "image": "k8s-dashboard.png"
       },
+      "countdown-generator": {
+        "name": "countdown-generator",
+        "owner": "LoLei",
+        "url": "https://github.com/LoLei/countdown-generator",
+        "image": "countdown-generator.png"
+      },
       "homepage": {
         "name": "homepage",
         "owner": "LoLei",

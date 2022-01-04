@@ -31,12 +31,16 @@
   justify-content: center;
 
   .image {
-    width: 25vw;
+    max-height: 25vh;
+    max-width: 25vw;
+    width: auto;
 
     @include mixins.mobile-margins;
 
     @media only screen and (max-width: variables.$tablet-width) {
       width: 100%;
+      max-height: fit-content;
+      max-width: fit-content;
     }
   }
 }
