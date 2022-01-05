@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "pretty": "prettier --write .",
-    "pretty:check": "prettier --check .",
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test:unit-local": "JEST_JUNIT_OUTPUT_DIR=results yarn run jest --forceExit",
     "test:unit-ci": "yarn run jest --forceExit --silent --ci"
