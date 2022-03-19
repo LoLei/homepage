@@ -38,6 +38,12 @@
         "url": "https://github.com/LoLei/countdown-generator",
         "image": "countdown-generator.png"
       },
+      "home-remote": {
+        "name": "home-remote",
+        "owner": "LoLei",
+        "url": "https://github.com/LoLei/home-remote",
+        "image": "home-remote.png"
+      },
       "homepage": {
         "name": "homepage",
         "owner": "LoLei",
